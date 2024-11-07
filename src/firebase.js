@@ -58,7 +58,7 @@ onSnapshot(
       created_at: String(new Date(x.data().created_at?.seconds * 1000)),
     }));
     store.dispatch(setMessages(messages));
-  }
+  },
 );
 
 onSnapshot(
@@ -70,7 +70,7 @@ onSnapshot(
       created_at: String(new Date(x.data().created_at?.seconds * 1000)),
     }));
     store.dispatch(setChats(chats));
-  }
+  },
 );
 
 export async function sendMessage(payload) {
@@ -120,7 +120,7 @@ export const requestForToken = () => {
       } else {
         // Show permission request UI
         console.log(
-          'No registration token available. Request permission to generate one.'
+          'No registration token available. Request permission to generate one.',
         );
       }
     })

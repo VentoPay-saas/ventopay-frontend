@@ -47,12 +47,12 @@ export default function ProductModal({ extrasModal, setExtrasModal }) {
     },
   });
   const [counter, setCounter] = useState(
-    extrasModal.quantity || data.quantity || data.min_qty
+    extrasModal.quantity || data.quantity || data.min_qty,
   );
 
   const { currentBag, currency } = useSelector(
     (state) => state.cart,
-    shallowEqual
+    shallowEqual,
   );
 
   const handleSubmit = () => {
@@ -73,7 +73,7 @@ export default function ProductModal({ extrasModal, setExtrasModal }) {
     };
     if (orderItem.quantity > currentStock.quantity) {
       toast.warning(
-        `${t('you.cannot.order.more.than')} ${currentStock.quantity}`
+        `${t('you.cannot.order.more.than')} ${currentStock.quantity}`,
       );
       return;
     }
@@ -83,7 +83,7 @@ export default function ProductModal({ extrasModal, setExtrasModal }) {
 
   const handleExtrasClick = (e) => {
     const index = extrasIds.findIndex(
-      (item) => item.extra_group_id === e.extra_group_id
+      (item) => item.extra_group_id === e.extra_group_id,
     );
     let array = extrasIds;
     if (index > -1) array = array.slice(0, index);
@@ -93,14 +93,14 @@ export default function ProductModal({ extrasModal, setExtrasModal }) {
     setShowExtras(extrasData);
     extrasData.extras?.forEach((element) => {
       const index = extrasIds.findIndex((item) =>
-        element[0].extra_group_id != e.extra_group_id
+        element[0].extra_group_id !== e.extra_group_id
           ? item.extra_group_id === element[0].extra_group_id
-          : item.extra_group_id === e.extra_group_id
+          : item.extra_group_id === e.extra_group_id,
       );
       if (element[0].level >= e.level) {
         var itemData =
-          element[0].extra_group_id != e.extra_group_id ? element[0] : e;
-        if (index == -1) array.push(itemData);
+          element[0].extra_group_id !== e.extra_group_id ? element[0] : e;
+        if (index === -1) array.push(itemData);
         else {
           array[index] = itemData;
         }
@@ -147,7 +147,7 @@ export default function ProductModal({ extrasModal, setExtrasModal }) {
         (total +=
           item.product.stock?.price *
           (item.product.quantity || item.product.min_qty)),
-      0
+      0,
     );
     return addonPrice + showExtras?.stock
       ? showExtras?.stock[priceKey || 'price']
@@ -176,13 +176,13 @@ export default function ProductModal({ extrasModal, setExtrasModal }) {
           };
         }
         return addon;
-      })
+      }),
     );
   }
 
   useDidUpdate(() => {
     const addons = showExtras.stock.addons.filter((item) =>
-      selectedValues.includes(String(item.addon_id))
+      selectedValues.includes(String(item.addon_id)),
     );
 
     handleAddonClick(addons);
@@ -209,13 +209,13 @@ export default function ProductModal({ extrasModal, setExtrasModal }) {
         getExtras('', myData.extras, myData.stock).extras?.forEach(
           (element) => {
             setExtrasIds((prev) => [...prev, element[0]]);
-          }
+          },
         );
         if (extrasModal?.addons) {
           setSelectedValues(
             extrasModal?.addons?.map((addon) =>
-              String(addon?.countable?.id || addon.countable_id)
-            ) || []
+              String(addon?.countable?.id || addon.countable_id),
+            ) || [],
           );
         }
       })
@@ -262,7 +262,7 @@ export default function ProductModal({ extrasModal, setExtrasModal }) {
                   <div className='ml-2 font-weight-bold'>
                     {numberToPrice(
                       calculateTotalPrice('total_price'),
-                      currency?.symbol
+                      currency?.symbol,
                     )}
                   </div>
                 ) : (

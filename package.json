@@ -16,7 +16,7 @@
     "axios": "^1.7.2",
     "browserslist": "^4.21.4",
     "downloadjs": "^1.4.7",
-    "firebase": "^9.9.3",
+    "firebase": "^11.0.1",
     "google-map-react": "^2.1.10",
     "google-maps-react": "^2.0.6",
     "hex-color-to-color-name": "^1.0.2",
