@@ -1,4 +1,4 @@
-export const PROJECT_NAME = 'VentoPay';
+export const PROJECT_NAME = 'VentoPay-saas';
 export const BASE_URL =
   process.env.REACT_APP_BASE_URL || 'https://saas-api.foodyman.org';
 export const WEBSITE_URL = 'https://saas-api.foodyman.org';
