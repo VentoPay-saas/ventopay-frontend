@@ -10,13 +10,13 @@ importScripts('https://cdn.jsdelivr.net/npm/idb-keyval@6/dist/umd.js');
 
 // Initialize the Firebase app in the service worker by passing the generated config
 const firebaseConfig = {
-  apiKey: '',
-  authDomain: '',
-  projectId: '',
-  storageBucket: '',
-  messagingSenderId: '',
-  appId: '',
-  measurementId: '',
+  apiKey: 'AIzaSyA0vtQQJ-9u0ZvWrNpqL4HYgc4lTkgHwok',
+  authDomain: 'ventopay-848eb.firebaseapp.com',
+  projectId: 'ventopay-848eb',
+  storageBucket: 'ventopay-848eb.appspot.com',
+  messagingSenderId: '443842414474',
+  appId: '1:443842414474:web:00ae149f1ea8affc466a73',
+  measurementId: 'G-9EPB4X4TP4',
 };
 
 firebase.initializeApp(firebaseConfig);

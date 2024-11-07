@@ -43,20 +43,20 @@ const App = () => {
     }
   };
 
-  const fetchTranslations = async () => {
-    const params = { lang: i18n.language };
-    setLoading(true);
-    informationService
-      .translations(params)
-      .then(({ data }) =>
-        i18n.addResourceBundle(i18n.language, 'translation', data),
-      )
-      .finally(() => setLoading(false));
-  };
+  // const fetchTranslations = async () => {
+  //   const params = { lang: i18n.language };
+  //   setLoading(true);
+  //   informationService
+  //     .translations(params)
+  //     .then(({ data }) =>
+  //       i18n.addResourceBundle(i18n.language, 'translation', data),
+  //     )
+  //     .finally(() => setLoading(false));
+  // };
 
-  useEffect(() => {
-    fetchTranslations();
-  }, []);
+  // useEffect(() => {
+  //   fetchTranslations();
+  // }, []);
 
   useEffect(() => {
     fetchUserSettings(user?.role || '');
