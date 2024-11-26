@@ -1,15 +1,15 @@
 export const PROJECT_NAME = 'VentoPay-saas';
-export const BASE_URL =
-  process.env.REACT_APP_BASE_URL || 'https://saas-api.foodyman.org';
-export const WEBSITE_URL = 'https://saas-api.foodyman.org';
 // export const BASE_URL =
-//   process.env.REACT_APP_BASE_URL || 'http://localhost:5000';
-// export const WEBSITE_URL = 'http://localhost:5000';
+//   process.env.REACT_APP_BASE_URL || 'https://saas-api.foodyman.org';
+// export const WEBSITE_URL = 'https://saas-api.foodyman.org';
+export const BASE_URL =
+  process.env.REACT_APP_BASE_URL || 'http://localhost:5000';
+export const WEBSITE_URL = 'http://localhost:5000';
 // export const BASE_URL =
 //   process.env.REACT_APP_BASE_URL ||
 //   'https://ventopay-backend-q2ty.onrender.com';
 // export const WEBSITE_URL = 'https://ventopay-backend-q2ty.onrender.com';
-export const api_url = BASE_URL + '/api/v1/';
+export const api_url = BASE_URL + '';
 export const api_url_admin = BASE_URL + '/api/v1/dashboard/admin/';
 export const api_url_admin_dashboard = BASE_URL + '/api/v1/dashboard/';
 export const IMG_URL = '';
