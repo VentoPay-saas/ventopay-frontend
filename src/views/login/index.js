@@ -83,16 +83,16 @@ const Login = () => {
     authService
       .login(body)
       .then((res) => {
+        console.log(res);
         const user = {
-          fullName: res.data.user.firstname + ' ' + res.data.user.lastname,
-          role: res.data.user.role,
-          urls: data[res.data.user.role],
-          img: res.data.user.img,
-          token: res.data.access_token,
-          email: res.data.user.email,
-          id: res.data.user.id,
-          shop_id: res.data.user?.shop?.id,
-          shop: res.data.user.worker_shop,
+          role: res.data.role,
+          urls: data[res.data.role],
+          img: res.data.img,
+          token: res.token,
+          email: res.data.email,
+          id: res.data._id,
+          shop_id: res.data?.shop?.id,
+          shop: res.data.worker_shop,
         };
         if (user.role === 'waiter') {
           dispatch(

@@ -12,13 +12,13 @@ export const WelcomeLayout = ({ children }) => {
 
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    setLoading(true);
-    installationService
-      .checkInitFile()
-      .then(() => navigate('/'))
-      .finally(() => setLoading(false));
-  }, []);
+  // useEffect(() => {
+  // setLoading(true);
+  // installationService
+  // .checkInitFile()
+  // .then(() => navigate('/'))
+  // .finally(() => setLoading(false));
+  // }, []);
 
   if (loading) {
     <Loading />;
