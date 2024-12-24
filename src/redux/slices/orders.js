@@ -101,7 +101,7 @@ export const fetchUserOrders = createAsyncThunk(
     return orderService
       .getAllUserOrder(user_id, otherParams)
       .then((res) => res);
-  }
+  },
 );
 export const handleSearch = createAsyncThunk(
   'order/handleSearch',
@@ -109,23 +109,20 @@ export const handleSearch = createAsyncThunk(
     return orderService
       .getAll({ ...initialState.params, ...params })
       .then((res) => res.data);
-  }
+  },
 );
-export const fetchOrders = createAsyncThunk(
-  'order/fetchOrders',
-  (params = {}) => {
-    return orderService
-      .getAll({ ...initialState.params, ...params })
-      .then((res) => res.data);
-  }
-);
+export const fetchOrders = createAsyncThunk('order/orders', (params = {}) => {
+  return orderService
+    .getAll({ ...initialState.params, ...params })
+    .then((res) => res.data);
+});
 export const fetchNewOrders = createAsyncThunk(
-  'order/fetchNewOrders',
+  'order/Orders',
   (params = {}) => {
     return orderService
       .getAll({ ...initialState.new.params, ...params })
       .then((res) => res.data);
-  }
+  },
 );
 export const fetchAcceptedOrders = createAsyncThunk(
   'order/fetchAcceptedOrders',
@@ -133,7 +130,7 @@ export const fetchAcceptedOrders = createAsyncThunk(
     return orderService
       .getAll({ ...initialState.accepted.params, ...params })
       .then((res) => res.data);
-  }
+  },
 );
 export const fetchReadyOrders = createAsyncThunk(
   'order/fetchReadyOrders',
@@ -141,7 +138,7 @@ export const fetchReadyOrders = createAsyncThunk(
     return orderService
       .getAll({ ...initialState.ready.params, ...params })
       .then((res) => res.data);
-  }
+  },
 );
 export const fetchCookingOrders = createAsyncThunk(
   'order/fetchCookingOrders',
@@ -149,7 +146,7 @@ export const fetchCookingOrders = createAsyncThunk(
     return orderService
       .getAll({ ...initialState.cooking.params, ...params })
       .then((res) => res.data);
-  }
+  },
 );
 export const fetchOnAWayOrders = createAsyncThunk(
   'order/fetchOnAWayOrders',
@@ -157,7 +154,7 @@ export const fetchOnAWayOrders = createAsyncThunk(
     return orderService
       .getAll({ ...initialState.on_a_way.params, ...params })
       .then((res) => res.data);
-  }
+  },
 );
 export const fetchDeliveredOrders = createAsyncThunk(
   'order/fetchDeliveredOrders',
@@ -165,7 +162,7 @@ export const fetchDeliveredOrders = createAsyncThunk(
     return orderService
       .getAll({ ...initialState.delivered.params, ...params })
       .then((res) => res.data);
-  }
+  },
 );
 export const fetchCanceledOrders = createAsyncThunk(
   'order/fetchCanceledOrders',
@@ -173,7 +170,7 @@ export const fetchCanceledOrders = createAsyncThunk(
     return orderService
       .getAll({ ...initialState.canceled.params, ...params })
       .then((res) => res.data);
-  }
+  },
 );
 export const fetchSellerOrders = createAsyncThunk(
   'order/fetchSellerOrders',
@@ -181,7 +178,7 @@ export const fetchSellerOrders = createAsyncThunk(
     return sellerOrderService
       .getAll({ ...initialState.params, ...params })
       .then((res) => res.data);
-  }
+  },
 );
 
 export const fetchUserTopProducts = createAsyncThunk(
@@ -190,7 +187,7 @@ export const fetchUserTopProducts = createAsyncThunk(
     return orderService
       .getUserTopProducts(params.user_id, params)
       .then((res) => res.data);
-  }
+  },
 );
 
 const orderSlice = createSlice({
