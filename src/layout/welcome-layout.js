@@ -13,6 +13,8 @@ export const WelcomeLayout = ({ children }) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    console.log("i am called at the start");
+
     setLoading(true);
     installationService
       .checkInitFile()
