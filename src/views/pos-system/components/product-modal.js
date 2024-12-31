@@ -56,7 +56,7 @@ export default function ProductModal({ extrasModal, setExtrasModal }) {
   );
 
   const handleSubmit = () => {
-    const products = addons.map((item) => ({
+    const products = addons?.map((item) => ({
       ...item,
       stockID: item.product.stock.id,
       quantity: item.product.quantity || item.product.min_qty,
@@ -132,7 +132,7 @@ export default function ProductModal({ extrasModal, setExtrasModal }) {
   const handleChange = (item) => {
     const value = String(item.addon_id);
     if (selectedValues.includes(value)) {
-      setSelectedValues((prev) => prev.filter((el) => el !== value));
+      setSelectedValues((prev) => prev?.filter((el) => el !== value));
     } else {
       setSelectedValues((prev) => [...prev, value]);
     }
@@ -144,9 +144,9 @@ export default function ProductModal({ extrasModal, setExtrasModal }) {
   function calculateTotalPrice(priceKey) {
     const addonPrice = addons?.reduce(
       (total, item) =>
-        (total +=
-          item.product.stock.price *
-          (item.product.quantity || item.product.min_qty)),
+      (total +=
+        item.product.stock.price *
+        (item.product.quantity || item.product.min_qty)),
       0
     );
     return addonPrice + showExtras?.stock ? showExtras?.stock[priceKey || 'price'] : 0 * counter;
@@ -157,7 +157,7 @@ export default function ProductModal({ extrasModal, setExtrasModal }) {
       ...prev,
       stock: {
         ...prev.stock,
-        addons: prev.stock.addons.map((addon) => {
+        addons: prev.stock.addons?.map((addon) => {
           if (addon.addon_id === id) {
             return { ...addon, product: { ...addon.product, quantity } };
           }
@@ -166,7 +166,7 @@ export default function ProductModal({ extrasModal, setExtrasModal }) {
       },
     }));
     setAddons((prev) =>
-      prev.map((addon) => {
+      prev?.map((addon) => {
         if (addon.addon_id === id) {
           return {
             ...addon,
@@ -179,7 +179,7 @@ export default function ProductModal({ extrasModal, setExtrasModal }) {
   }
 
   useDidUpdate(() => {
-    const addons = showExtras.stock.addons.filter((item) =>
+    const addons = showExtras.stock.addons?.filter((item) =>
       selectedValues.includes(String(item.addon_id))
     );
 
@@ -282,14 +282,13 @@ export default function ProductModal({ extrasModal, setExtrasModal }) {
         {showExtras?.extras?.map((item, idx) => (
           <div className='extra-group'>
             <Space key={'extra-group' + idx} className='extras-select'>
-              {item.map((el) => {
+              {item?.map((el) => {
                 return (
                   <span
-                    className={`extras-text rounded ${
-                      !!extrasIds.find((extra) => extra.id === el.id)
-                        ? 'selected'
-                        : ''
-                    }`}
+                    className={`extras-text rounded ${!!extrasIds.find((extra) => extra.id === el.id)
+                      ? 'selected'
+                      : ''
+                      }`}
                     onClick={() => handleExtrasClick(el)}
                   >
                     {el.value}
