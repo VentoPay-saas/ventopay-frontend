@@ -34,7 +34,7 @@ const GalleryItem = ({
     galleryService
       .getAll(params)
       .then((res) => {
-        setLanguages(res.data.data);
+        setLanguages(res.data);
         setMeta(res.data);
       })
       .finally(() => setLoading(false));
@@ -96,13 +96,12 @@ const GalleryItem = ({
               {languages?.map((item, index) => (
                 <Col key={item.id}>
                   <Card
-                    className={`mb-0 ${
-                      item.isset ? 'card-noActive' : 'card-active'
-                    } card-image`}
+                    className={`mb-0 ${item.isset ? 'card-noActive' : 'card-active'
+                      } card-image`}
                   >
                     <Image
                       preview={false}
-                      src={getImage(item.path)}
+                      src={getImage(item.image)}
                       className='images'
                       alt={'images'}
                       onClick={() => handleImage(item.path)}

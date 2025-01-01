@@ -48,7 +48,7 @@ const ImageGallery = ({
       uid: file.title,
       name: file.title,
       status: 'done', // done, uploading, error
-      url: file.title,
+      url: file?.title,
       created: true,
     };
   };
