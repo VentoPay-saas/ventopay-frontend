@@ -39,9 +39,9 @@ const ProductsIndex = ({ next, action_type = '' }) => {
   async function fetchUserShopList(search) {
     const params = { search };
     return shopService.get(params).then((res) =>
-      res.data.map((item) => ({
-        label: item.translation ? item.translation.title : 'no name',
-        value: item.id,
+      res.data?.shops.map((item) => ({
+        label: item.title ?? 'no name',
+        value: item._id,
       })),
     );
   }
@@ -70,16 +70,18 @@ const ProductsIndex = ({ next, action_type = '' }) => {
     productService
       .create(params)
       .then(({ data }) => {
+        console.log("data in create:", data);
+
         dispatch(
           replaceMenu({
-            id: `product-${data.uuid}`,
-            url: `product/${data.uuid}`,
+            id: `product-${data._id}`,
+            url: `product/${data._id}`,
             name: t('add.product'),
             data: values,
             refetch: false,
           }),
         );
-        navigate(`/addon/${data.uuid}?step=1`);
+        navigate(`/addon/${data._id}?step=1`);
       })
       .catch((err) => setError(err.response.data.params))
       .finally(() => setLoadingBtn(false));
@@ -118,9 +120,9 @@ const ProductsIndex = ({ next, action_type = '' }) => {
 
   function formatUnits(data) {
     return data.map((item) => ({
-      label: item?.translation?.title || t('N/A'),
-      value: item?.id,
-      key: item?.id,
+      label: item.title || t('N/A'),
+      value: item?._id,
+      key: item?._id,
     }));
   }
 
@@ -137,7 +139,7 @@ const ProductsIndex = ({ next, action_type = '' }) => {
           <Card title={t('basic.info')}>
             <Row gutter={24}>
               <Col span={24}>
-                {languages.map((item) => (
+                {/* {languages.map((item) => (
                   <Form.Item
                     key={'name' + item.id}
                     label={t('name')}
@@ -164,10 +166,24 @@ const ProductsIndex = ({ next, action_type = '' }) => {
                   >
                     <Input />
                   </Form.Item>
-                ))}
+                ))} */}
+                <Form.Item
+                  key={'name'}
+                  label={t('name')}
+                  name={`title`}
+                  rules={[
+                    {
+                      required: true,
+                      message: "required"
+                    }
+                  ]}
+                >
+                  <Input />
+                </Form.Item>
+
               </Col>
               <Col span={24}>
-                {languages.map((item) => (
+                {/* {languages.map((item) => (
                   <Form.Item
                     key={'description' + item.id}
                     label={t('description')}
@@ -194,7 +210,22 @@ const ProductsIndex = ({ next, action_type = '' }) => {
                   >
                     <TextArea rows={4} span={4} />
                   </Form.Item>
-                ))}
+                ))} */}
+
+                {/* {languages.map((item) => ( */}
+                <Form.Item
+                  key={'description'}
+                  label={t('description')}
+                  name={`description`}
+                  rules={[
+                    {
+                      message: "required",
+                      required: true
+                    },
+                  ]}
+                >
+                  <TextArea rows={4} span={4} />
+                </Form.Item>
               </Col>
               <Col span={6}>
                 <Form.Item

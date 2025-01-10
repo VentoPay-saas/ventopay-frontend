@@ -59,7 +59,7 @@ export default function CategoryForm({ form, handleSubmit, error }) {
     >
       <Row gutter={12}>
         <Col span={12}>
-          {languages.map((item, index) => (
+          {/* {languages.map((item, index) => (
             <Form.Item
               key={item.title + index}
               label={t('name')}
@@ -90,11 +90,24 @@ export default function CategoryForm({ form, handleSubmit, error }) {
             >
               <Input placeholder={t('name')} />
             </Form.Item>
-          ))}
+          ))} */}
+          <Form.Item
+            key={"title"}
+            label={t('name')}
+            name={`title`}
+            rules={[
+              {
+                required: true,
+                message: "required"
+              },
+            ]}
+          >
+            <Input placeholder={t('name')} />
+          </Form.Item>
         </Col>
 
         <Col span={12}>
-          {languages.map((item, index) => (
+          {/* {languages.map((item, index) => (
             <Form.Item
               key={item.locale + index}
               label={t('description')}
@@ -117,7 +130,19 @@ export default function CategoryForm({ form, handleSubmit, error }) {
             >
               <TextArea maxLength={250} rows={4} />
             </Form.Item>
-          ))}
+          ))} */}
+          <Form.Item
+            key={"description"}
+            label={t('description')}
+            name={`description`}
+            rules={[
+              {
+                message: "required"
+              },
+            ]}
+          >
+            <TextArea maxLength={250} rows={4} />
+          </Form.Item>
         </Col>
 
         <Col span={12}>
@@ -139,7 +164,7 @@ export default function CategoryForm({ form, handleSubmit, error }) {
             <Form.Item
               label={t('parent.category')}
               name='parent_id'
-              // rules={[{ required: true, message: t('required') }]}
+            // rules={[{ required: true, message: t('required') }]}
             >
               <RefetchSearch refetch fetchOptions={fetchUserCategoryList} />
             </Form.Item>

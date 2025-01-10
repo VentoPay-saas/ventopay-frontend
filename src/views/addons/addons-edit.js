@@ -36,16 +36,16 @@ const AddonEdit = () => {
 
   const createImages = (items) =>
     items.map((item) => ({
-      uid: item.id,
-      name: item.path,
-      url: item.path,
+      uid: item._id,
+      name: item._id,
+      url: item._id,
     }));
 
   const createSelectObject = (item) => {
     if (!item) return null;
     return {
-      label: item.translation ? item.translation.title : item.title,
-      value: item.id,
+      label: item ? item.title : item.title,
+      value: item._id,
     };
   };
 
@@ -61,7 +61,7 @@ const AddonEdit = () => {
           category: createSelectObject(res?.data?.category),
           brand: createSelectObject(res?.data?.brand),
           unit: createSelectObject(res?.data?.unit),
-          images: createImages(res?.data?.galleries),
+          images: createImages(res?.data?.images),
           extras: res?.data?.stocks?.[0]?.extras?.map(
             (el) => el?.extra_group_id,
           ),
@@ -114,8 +114,10 @@ const AddonEdit = () => {
     if (activeMenu.refetch) {
       fetchProduct(uuid);
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeMenu.refetch]);
+    // }, [activeMenu.refetch]);
+  }, []);
 
   const onChange = (step) => {
     dispatch(setMenuData({ activeMenu, data: { ...activeMenu.data, step } }));

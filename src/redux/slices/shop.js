@@ -29,27 +29,27 @@ const shopSlice = createSlice({
     builder.addCase(fetchShops.fulfilled, (state, action) => {
       const { payload } = action;
       state.loading = false;
-      state.shops = payload.data.map((item) => ({
+      state.shops = payload.data?.shops?.map((item) =>
+      ({
         created_at: item.created_at,
         active: item.show_type,
         tax: item.tax,
         open: item.open,
-        name: item.translation !== null ? item.translation.title : 'no name',
-        seller: item.seller
-          ? item.seller.firstname + ' ' + item.seller.lastname
+        name: item !== null ? item.title : 'no name',
+        seller: item.user_id
+          ? item.user_id.firstname + ' ' + item.user_id.lastname
           : '',
-        uuid: item.uuid,
-        logo_img: item.logo_img,
-        back: item.background_img,
-        id: item.id,
-        locales: item.locales,
+        uuid: item._id,
+        logo_img: item.logo_img.url,
+        back: item.background_img.url,
+        id: item._id,
         status: item.status,
         deleted_at: item.deleted_at,
         verify: item.verify,
       }));
-      state.meta = payload.meta;
-      state.params.page = payload.meta.current_page;
-      state.params.perPage = payload.meta.per_page;
+      state.meta = payload.data.meta;
+      state.params.page = payload.data.meta.current_page;
+      state.params.perPage = payload.data.meta.per_page;
       state.error = '';
     });
     builder.addCase(fetchShops.rejected, (state, action) => {

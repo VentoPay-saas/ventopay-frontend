@@ -52,7 +52,7 @@ export default function UserEdit({ prev }) {
     };
     const nextUrl = 'shops';
     userService
-      .update(activeMenu?.data?.seller?.uuid, body)
+      .update(activeMenu?.data?.seller?._id, body)
       .then(() => {
         toast.success(t('successfully.updated'));
         navigate(`/${nextUrl}`);
@@ -64,7 +64,7 @@ export default function UserEdit({ prev }) {
   };
 
   useEffect(() => {
-    showUserData(activeMenu?.data?.seller?.uuid);
+    showUserData(activeMenu?.data?.seller?._id);
 
     return () => {
       setLoading(false);

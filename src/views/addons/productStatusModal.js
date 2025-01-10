@@ -12,6 +12,7 @@ export default function ProductStatusModal({
   orderDetails: data,
   handleCancel,
 }) {
+  console.log("🚀 ~ data:", data)
   const { activeMenu } = useSelector((state) => state.menu, shallowEqual);
   const [form] = Form.useForm();
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ export default function ProductStatusModal({
     setLoading(true);
     const params = { ...values };
     productService
-      .updateStatus(data.uuid, params)
+      .updateStatus(data._id, params)
       .then(() => {
         handleCancel();
         const data = activeMenu.data;

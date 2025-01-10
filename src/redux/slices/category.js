@@ -33,15 +33,14 @@ const categorySlice = createSlice({
       state.loading = false;
       state.categories = payload.data.map((item) => ({
         active: item.active,
-        img: item.img,
-        name: item.translation !== null ? item.translation.title : 'no name',
-        key: item.uuid + '_' + item.id,
-        uuid: item.uuid,
-        id: item.id,
-        locales: item.locales,
+        img: item.images,
+        name: item.title !== null ? item.title : 'no name',
+        key: item._id + '_' + item._id,
+        uuid: item._id,
+        id: item._id,
         deleted_at: item?.deleted_at,
         status: item.status,
-        shop: item.shop,
+        shop: item.shop_id,
         shop_id: item.shop_id,
         // children: item.children?.map((child) => ({
         //   name:
