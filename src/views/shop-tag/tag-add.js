@@ -29,8 +29,9 @@ const TagAdd = () => {
 
   const handleSubmit = (values, image) => {
     const body = {
-      images: image.map((image) => image.name),
-      title: getTranslationFields(languages, values, 'title'),
+      images: image.map((image) => image.url),
+      title: values.title,
+      status: 'published'
     };
     const nextUrl = 'shop-tag';
 

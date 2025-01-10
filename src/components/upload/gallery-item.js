@@ -51,16 +51,16 @@ const GalleryItem = ({
 
   const createImage = (file) => {
     return {
-      uid: file,
-      name: file,
+      uid: file?._id,
+      name: file?._id,
       status: 'done', // done, uploading, error
-      url: file,
+      url: file?.image,
       created: true,
     };
   };
 
   const handleImage = (name) => {
-    const include = imageList.includes(name);
+    const include = imageList.includes(name._id);
     if (include) toast.warn('This image is already uploaded');
     else {
       setIsModalOpen(false);
@@ -94,7 +94,8 @@ const GalleryItem = ({
           <>
             <Row gutter={[24, 24]}>
               {languages?.map((item, index) => (
-                <Col key={item.id}>
+
+                <Col key={item._id}>
                   <Card
                     className={`mb-0 ${item.isset ? 'card-noActive' : 'card-active'
                       } card-image`}
@@ -104,7 +105,7 @@ const GalleryItem = ({
                       src={getImage(item.image)}
                       className='images'
                       alt={'images'}
-                      onClick={() => handleImage(item.path)}
+                      onClick={() => handleImage(item)}
                     />
                   </Card>
                 </Col>

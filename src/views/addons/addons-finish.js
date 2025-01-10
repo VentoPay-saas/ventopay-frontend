@@ -17,6 +17,7 @@ const ProductFinish = ({ prev }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [data, setData] = useState({});
+  console.log("🚀 ~ ProductFinish ~ data:", data)
   const [loading, setLoading] = useState(null);
   const { uuid } = useParams();
   const { params } = useSelector((state) => state.addons, shallowEqual);
@@ -44,14 +45,7 @@ const ProductFinish = ({ prev }) => {
       .then((res) => {
         const data = {
           ...res.data,
-          ...getLanguageFields(res.data),
-          properties: res.data.properties.map((item, index) => ({
-            id: index,
-            [`key[${item.locale}]`]: item.key,
-            [`value[${item.locale}]`]: item.value,
-          })),
-          translation: undefined,
-          translations: undefined,
+
         };
         setData(data);
       })
@@ -77,19 +71,19 @@ const ProductFinish = ({ prev }) => {
     <>
       <Descriptions title={t('product.info')} bordered>
         <Descriptions.Item label={`${t('title')} (${defaultLang})`} span={3}>
-          {data[`title[${defaultLang}]`]}
+          {data[`title`]}
         </Descriptions.Item>
         <Descriptions.Item
           label={`${t('description')} (${defaultLang})`}
           span={3}
         >
-          {data[`description[${defaultLang}]`]}
+          {data[`description`]}
         </Descriptions.Item>
         <Descriptions.Item label={t('shop')} span={1.5}>
-          {data.shop?.translation.title}
+          {data.shop_id?.title}
         </Descriptions.Item>
         <Descriptions.Item label={t('unit')} span={1.5}>
-          {data.unit?.translation.title}
+          {data.unit_id?.title}
         </Descriptions.Item>
 
         <Descriptions.Item label={t('tax')}>{data.tax}</Descriptions.Item>
@@ -112,7 +106,7 @@ const ProductFinish = ({ prev }) => {
             <Descriptions.Item label={t('quantity')} span={2}>
               {item.quantity}
             </Descriptions.Item>
-            {item.extras.map((extra, idx) => (
+            {item?.extras?.map((extra, idx) => (
               <Descriptions.Item
                 key={'extra' + idx}
                 label={extra?.group?.translation?.title}

@@ -477,20 +477,20 @@ const ProductsIndex = ({ next, action_type = '', isRequest }) => {
                     >
                       <AsyncTreeSelect
                         fetchOptions={fetchUserCategoryList}
-                        // dropdownRender={(menu) => (
-                        //   <>
-                        //     {menu}
-                        //     <div className='p-1'>
-                        //       <Button
-                        //         icon={<PlusOutlined />}
-                        //         className='w-100'
-                        //         onClick={goToAddCategory}
-                        //       >
-                        //         {t('add.category')}
-                        //       </Button>
-                        //     </div>
-                        //   </>
-                        // )}
+                      // dropdownRender={(menu) => (
+                      //   <>
+                      //     {menu}
+                      //     <div className='p-1'>
+                      //       <Button
+                      //         icon={<PlusOutlined />}
+                      //         className='w-100'
+                      //         onClick={goToAddCategory}
+                      //       >
+                      //         {t('add.category')}
+                      //       </Button>
+                      //     </div>
+                      //   </>
+                      // )}
                       />
                     </Form.Item>
                   </Col>

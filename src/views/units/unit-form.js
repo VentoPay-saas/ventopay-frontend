@@ -29,7 +29,20 @@ export default function UnitForm({ form, handleSubmit }) {
     >
       <Row gutter={12}>
         <Col span={12}>
-          {languages.map((item, idx) => (
+          <Form.Item
+            label={t('title')}
+            name="title"
+            rules={[
+              {
+                required: true,
+                message: t('required'),
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          {/* {languages.map((item, idx) => (
             <Form.Item
               key={'title' + idx}
               label={t('title')}
@@ -44,7 +57,7 @@ export default function UnitForm({ form, handleSubmit }) {
             >
               <Input />
             </Form.Item>
-          ))}
+          ))} */}
         </Col>
         <Col span={12}>
           <div className='col-md-12 col-sm-6'>

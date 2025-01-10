@@ -45,10 +45,10 @@ const ImageGallery = ({
 
   const createImage = (file) => {
     return {
-      uid: file.title,
-      name: file.title,
+      uid: file._id,
+      name: file._id,
       status: 'done', // done, uploading, error
-      url: file?.title,
+      url: file?.image,
       created: true,
     };
   };
