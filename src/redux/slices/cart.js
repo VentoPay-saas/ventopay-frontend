@@ -43,7 +43,7 @@ const cartSlice = createSlice({
             item?.addons?.find(
               (itemAddon) =>
                 itemAddon?.addon_id ===
-                  (payloadAddon?.addon_id ?? payloadAddon?.countable_id) &&
+                (payloadAddon?.addon_id ?? payloadAddon?.countable_id) &&
                 itemAddon?.quantity === payloadAddon?.quantity,
             ),
           ) &&
@@ -82,7 +82,7 @@ const cartSlice = createSlice({
               item?.addons?.find(
                 (itemAddon) =>
                   itemAddon?.addon_id ===
-                    (payloadAddon?.addon_id ?? payloadAddon?.countable_id) &&
+                  (payloadAddon?.addon_id ?? payloadAddon?.countable_id) &&
                   itemAddon?.quantity === payloadAddon?.quantity,
               ),
             ) &&

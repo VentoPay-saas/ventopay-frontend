@@ -58,15 +58,15 @@ export default function ProductModal({ extrasModal, setExtrasModal }) {
   const handleSubmit = () => {
     const products = addons?.map((item) => ({
       ...item,
-      stockID: item.product.stock.id,
+      stockID: item.product.stock._id,
       quantity: item.product.quantity || item.product.min_qty,
     }));
     const orderItem = {
       ...data,
       stock: currentStock,
       quantity: counter,
-      id: currentStock.id,
-      img: getImageFromStock(currentStock) || data.img,
+      id: currentStock._id,
+      img: getImageFromStock(currentStock) || data.images,
       bag_id: currentBag,
       stockID: currentStock,
       addons: products,
@@ -196,7 +196,7 @@ export default function ProductModal({ extrasModal, setExtrasModal }) {
   useEffect(() => {
     setLoading(true);
     productService
-      .getById(extrasModal.uuid)
+      .getById(extrasModal._id)
       .then(({ data }) => {
         setData(data);
         const myData = sortExtras(data, extrasModal?.addons);
@@ -219,7 +219,7 @@ export default function ProductModal({ extrasModal, setExtrasModal }) {
       })
       .finally(() => setLoading(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [extrasModal.uuid]);
+  }, [extrasModal._id]);
 
   return (
     <Modal
@@ -246,14 +246,16 @@ export default function ProductModal({ extrasModal, setExtrasModal }) {
         <Row gutter={24}>
           <Col span={8}>
             <Image
-              src={getImage(getImageFromStock(currentStock) || data.img)}
+              src={getImage(
+                getImageFromStock(currentStock) || (Array.isArray(data?.images) && data?.images[0]?.url) || ""
+              )}
               alt={data.name}
               height={200}
               style={{ objectFit: 'contain' }}
             />
           </Col>
           <Col span={16}>
-            <Descriptions title={data.translation?.title}>
+            <Descriptions title={data?.title}>
               <Descriptions.Item label={t('price')} span={3}>
                 <div className={currentStock?.discount ? 'strike' : ''}>
                   {numberToPrice(calculateTotalPrice(), currency?.symbol)}
@@ -270,7 +272,7 @@ export default function ProductModal({ extrasModal, setExtrasModal }) {
                 )}
               </Descriptions.Item>
               <Descriptions.Item label={t('in.stock')} span={3}>
-                {numberToQuantity(currentStock?.quantity, data.unit)}
+                {numberToQuantity(currentStock?.quantity, data.unit_id)}
               </Descriptions.Item>
               <Descriptions.Item label={t('tax')} span={3}>
                 {numberToPrice(currentStock?.tax, currency?.symbol)}
@@ -315,7 +317,7 @@ export default function ProductModal({ extrasModal, setExtrasModal }) {
                 onClick={reduceCounter}
               />
               {(counter || 1) * (data?.interval || 1)}
-              {data?.unit?.translation?.title}
+              {data?.unit_id?.title}
               <Button
                 type='primary'
                 icon={<PlusOutlined />}

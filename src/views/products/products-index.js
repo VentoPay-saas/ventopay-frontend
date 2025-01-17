@@ -38,6 +38,7 @@ const ProductsIndex = ({ next, action_type = '', isRequest }) => {
   const [fileList, setFileList] = useState(
     activeMenu.data?.images ? activeMenu.data?.images : [],
   );
+  console.log("🚀 ~ ProductsIndex ~ fileList:", fileList)
   const [loadingBtn, setLoadingBtn] = useState(false);
   const [nutrition, setNutrition] = useState(Boolean(activeMenu.data?.kcal));
 
@@ -74,7 +75,7 @@ const ProductsIndex = ({ next, action_type = '', isRequest }) => {
       ...Object.assign(
         {},
         ...fileList.map((item, index) => ({
-          [`images[${index}]`]: item.name,
+          [`images[${index}]`]: item,
         })),
       ),
     };
@@ -127,16 +128,17 @@ const ProductsIndex = ({ next, action_type = '', isRequest }) => {
     productService
       .create(params)
       .then(({ data }) => {
+        console.log("🚀 ~ .then ~ data:", data)
         dispatch(
           replaceMenu({
-            id: `product-${data.uuid}`,
-            url: `product/${data.uuid}`,
+            id: `product-${data._id}`,
+            url: `product/${data._id}`,
             name: t('add.product'),
             data: values,
             refetch: false,
           }),
         );
-        navigate(`/product/${data.uuid}/?step=1`);
+        navigate(`/product/${data._id}/?step=1`);
       })
       .catch((err) => setError(err.response.data.params))
       .finally(() => setLoadingBtn(false));
@@ -167,9 +169,9 @@ const ProductsIndex = ({ next, action_type = '', isRequest }) => {
     };
     return unitService.getAll(params).then(({ data }) => {
       return data?.map((item) => ({
-        label: item?.translation?.title || item?.id || t('N/A'),
-        value: item?.id,
-        key: item?.id,
+        label: item?.title || item?._id || t('N/A'),
+        value: item?._id,
+        key: item?._id,
       }));
     });
   }
@@ -188,9 +190,9 @@ const ProductsIndex = ({ next, action_type = '', isRequest }) => {
         kitchen: res?.meta?.current_page < res?.meta?.last_page,
       });
       return res?.data?.map((item) => ({
-        label: item?.translation?.title || item?.id || t('N/A'),
-        value: item?.id,
-        key: item?.id,
+        label: item?.title || item?._id || t('N/A'),
+        value: item?._id,
+        key: item?._id,
       }));
     });
   }
@@ -198,9 +200,9 @@ const ProductsIndex = ({ next, action_type = '', isRequest }) => {
   async function fetchUserShopList(search) {
     const params = { search, active: 1 };
     return shopService.get(params).then((res) =>
-      res.data.map((item) => ({
-        label: item.translation ? item.translation.title : 'no name',
-        value: item.id,
+      res.data.data.map((item) => ({
+        label: item ? item.title : 'no name',
+        value: item._id,
       })),
     );
   }
@@ -210,7 +212,7 @@ const ProductsIndex = ({ next, action_type = '', isRequest }) => {
     return brandService.getAll(params).then((res) =>
       res.data.map((item) => ({
         label: item.title,
-        value: item.id,
+        value: item._id,
       })),
     );
   }
@@ -226,15 +228,16 @@ const ProductsIndex = ({ next, action_type = '', isRequest }) => {
       active: 1,
     };
     return categoryService.selectPaginate(params).then((res) => {
+
       return res.data.map((item) => ({
-        label: item.translation?.title || '',
-        value: item.id,
-        key: item.id,
-        disabled: item.children.length > 0,
-        children: item.children?.map((child) => ({
-          label: child.translation?.title || '',
-          value: child.id,
-          key: child.id,
+        label: item?.title || '',
+        value: item?._id,
+        key: item?._id,
+        disabled: item?.children?.length > 0,
+        children: item?.children?.map((child) => ({
+          label: child?.title || '',
+          value: child._id,
+          key: child._id,
         })),
       }));
     });
@@ -265,7 +268,7 @@ const ProductsIndex = ({ next, action_type = '', isRequest }) => {
               <Card title={t('basic.info')}>
                 <Row>
                   <Col span={24}>
-                    {languages.map((item) => (
+                    {/* {languages.map((item) => (
                       <Form.Item
                         key={'name' + item.id}
                         label={t('name')}
@@ -292,10 +295,24 @@ const ProductsIndex = ({ next, action_type = '', isRequest }) => {
                       >
                         <Input />
                       </Form.Item>
-                    ))}
+                    ))} */}
+
+                    <Form.Item
+                      key={'name'}
+                      label={t('name')}
+                      name={`title`}
+                      rules={[
+                        {
+                          required: true,
+                          message: "required"
+                        },
+                      ]}
+                    >
+                      <Input />
+                    </Form.Item>
                   </Col>
                   <Col span={24}>
-                    {languages.map((item) => (
+                    {/* {languages.map((item) => (
                       <Form.Item
                         key={'description' + item.id}
                         label={t('description')}
@@ -322,7 +339,21 @@ const ProductsIndex = ({ next, action_type = '', isRequest }) => {
                       >
                         <TextArea maxLength={250} rows={3} />
                       </Form.Item>
-                    ))}
+                    ))} */}
+
+                    <Form.Item
+                      key={'description'}
+                      label={t('description')}
+                      name={`description`}
+                      rules={[
+                        {
+                          required: true,
+                          message: "required"
+                        },
+                      ]}
+                    >
+                      <TextArea maxLength={250} rows={3} />
+                    </Form.Item>
                   </Col>
                 </Row>
               </Card>
@@ -490,7 +521,7 @@ const ProductsIndex = ({ next, action_type = '', isRequest }) => {
                               kitchen: undefined,
                             });
                           }}
-                          // disabled={action_type === 'edit'}
+                        // disabled={action_type === 'edit'}
                         />
                       </Form.Item>
                     </Col>

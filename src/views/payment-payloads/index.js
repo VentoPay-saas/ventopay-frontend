@@ -34,8 +34,8 @@ export default function PaymentPayloads() {
     {
       title: t('payment.id'),
       is_show: true,
-      dataIndex: 'payment_id',
-      key: 'payment_id',
+      dataIndex: '_id',
+      key: '_id',
     },
     {
       title: t('title'),
@@ -43,7 +43,7 @@ export default function PaymentPayloads() {
       dataIndex: 'title',
       key: 'title',
       render: (title, row) => {
-        return <>{row.payment?.tag}</>;
+        return <>{row.payment_id?.tag}</>;
       },
     },
     {
@@ -62,7 +62,7 @@ export default function PaymentPayloads() {
             <DeleteButton
               icon={<DeleteOutlined />}
               onClick={() => {
-                setId([row.payment_id]);
+                setId([row._id]);
                 setIsModalVisible(true);
                 setText(true);
               }}
@@ -76,12 +76,12 @@ export default function PaymentPayloads() {
   const goToEdit = (row) => {
     dispatch(
       addMenu({
-        url: `payment-payloads/edit/${row.payment_id}`,
+        url: `payment-payloads/edit/${row._id}`,
         id: 'edit.payment.payloads',
         name: t('edit.payment.payloads'),
       })
     );
-    navigate(`/payment-payloads/edit/${row.payment_id}`);
+    navigate(`/payment-payloads/edit/${row._id}`);
   };
 
   useEffect(() => {
@@ -173,7 +173,7 @@ export default function PaymentPayloads() {
         rowSelection={rowSelection}
         columns={columns?.filter((item) => item.is_show)}
         dataSource={payloads}
-        rowKey={(record) => record.payment_id}
+        rowKey={(record) => record._id}
         onChange={onChangePagination}
         loading={loading}
       />

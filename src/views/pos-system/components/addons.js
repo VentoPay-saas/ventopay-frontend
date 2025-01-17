@@ -16,12 +16,12 @@ const AddonsItem = ({
           return (
             <div key={item.id}>
               <Checkbox
-                id={String(item.id)}
-                name={String(item.id)}
+                id={String(item._id)}
+                name={String(item._id)}
                 checked={selected}
                 onChange={() => handleChange(item)}
               />
-              <label htmlFor={String(item.id)}>
+              <label htmlFor={String(item._id)}>
                 {selected && (
                   <Space size={0}>
                     <Button
@@ -60,7 +60,7 @@ const AddonsItem = ({
                     />
                   </Space>
                 )}
-                <span className='ml-2'>{item.product.translation.title}</span>
+                <span className='ml-2'>{item.product.title}</span>
               </label>
             </div>
           );

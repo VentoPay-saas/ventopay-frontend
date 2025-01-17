@@ -39,7 +39,7 @@ const ProductsIndex = ({ next, action_type = '' }) => {
   async function fetchUserShopList(search) {
     const params = { search };
     return shopService.get(params).then((res) =>
-      res.data?.shops.map((item) => ({
+      res.data?.data.map((item) => ({
         label: item.title ?? 'no name',
         value: item._id,
       })),
@@ -70,8 +70,6 @@ const ProductsIndex = ({ next, action_type = '' }) => {
     productService
       .create(params)
       .then(({ data }) => {
-        console.log("data in create:", data);
-
         dispatch(
           replaceMenu({
             id: `product-${data._id}`,

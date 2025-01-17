@@ -28,7 +28,7 @@ const ProductExtras = ({ next, prev, isRequest }) => {
     if (
       selectedExtras.some(
         (selectedExtra) =>
-          selectedExtra.values?.length === 0 || !selectedExtra.values
+          selectedExtra.value?.length === 0 || !selectedExtra.value
       )
     ) {
       toast.error(t('please.select.at.least.1.extra.value.for.each.extra'));

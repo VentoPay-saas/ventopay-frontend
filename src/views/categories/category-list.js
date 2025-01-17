@@ -118,9 +118,9 @@ const CategoryList = ({ parentId, type = 'main' }) => {
 
   const [columns, setColumns] = useState([
     {
-      title: t('id'),
-      dataIndex: 'id',
-      key: 'id',
+      title: t('uuid'),
+      dataIndex: 'uuid',
+      key: 'uuid',
       is_show: true,
     },
     {
@@ -143,22 +143,22 @@ const CategoryList = ({ parentId, type = 'main' }) => {
           t('admin')
         ),
     },
-    {
-      title: t('translations'),
-      dataIndex: 'locales',
-      is_show: true,
-      render: (_, row) => {
-        return (
-          <Space>
-            {row.locales?.map((item, index) => (
-              <Tag className='text-uppercase' color={[colors[index]]}>
-                {item}
-              </Tag>
-            ))}
-          </Space>
-        );
-      },
-    },
+    // {
+    //   title: t('translations'),
+    //   dataIndex: 'locales',
+    //   is_show: true,
+    //   render: (_, row) => {
+    //     return (
+    //       <Space>
+    //         {row.locales?.map((item, index) => (
+    //           <Tag className='text-uppercase' color={[colors[index]]}>
+    //             {item}
+    //           </Tag>
+    //         ))}
+    //       </Space>
+    //     );
+    //   },
+    // },
     {
       title: t('image'),
       dataIndex: 'img',
@@ -167,7 +167,7 @@ const CategoryList = ({ parentId, type = 'main' }) => {
       render: (img, row) => {
         return (
           <Image
-            src={row.deleted_at ? 'https://via.placeholder.com/150' : img}
+            src={row.deleted_at ? 'https://via.placeholder.com/150' : row?.img[0].url}
             alt='img_gallery'
             width={100}
             className='rounded'
