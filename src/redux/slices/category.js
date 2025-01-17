@@ -42,6 +42,7 @@ const categorySlice = createSlice({
         status: item.status,
         shop: item.shop_id,
         shop_id: item.shop_id,
+        parent_id: item.parent_id
         // children: item.children?.map((child) => ({
         //   name:
         //     child.translation !== null ? child.translation.title : 'no name',

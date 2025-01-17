@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { shallowEqual, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import categoryService from '../../services/category';
+import shopService from 'services/restaurant';
 
 export default function CategoryForm({ form, handleSubmit, error }) {
   const { t } = useTranslation();
@@ -17,6 +18,15 @@ export default function CategoryForm({ form, handleSubmit, error }) {
   );
   const { state } = useLocation();
 
+  async function fetchUserShopList(search) {
+    const params = { search, active: 1 };
+    return shopService.get(params).then((res) =>
+      res.data.data.map((item) => ({
+        label: item ? item.title : 'no name',
+        value: item._id,
+      })),
+    );
+  }
   //states
   const [loadingBtn, setLoadingBtn] = useState(false);
   const [image, setImage] = useState(
@@ -33,9 +43,9 @@ export default function CategoryForm({ form, handleSubmit, error }) {
     };
     return categoryService.selectPaginate(params).then((res) =>
       res.data.map((item) => ({
-        label: item.translation?.title,
-        value: item.id,
-        key: item.id,
+        label: item?.title,
+        value: item._id,
+        key: item._id,
       }))
     );
   }
@@ -170,6 +180,25 @@ export default function CategoryForm({ form, handleSubmit, error }) {
             </Form.Item>
           </Col>
         )}
+
+        <Col span={24}>
+          <Form.Item
+            label={t('shop/restaurant')}
+            name='shop'
+            rules={[{ required: true, message: t('required') }]}
+          >
+            <RefetchSearch
+              fetchOptions={fetchUserShopList}
+              onChange={() => {
+                form.setFieldsValue({
+                  category: undefined,
+                  kitchen: undefined,
+                });
+              }}
+            // disabled={action_type === 'edit'}
+            />
+          </Form.Item>
+        </Col>
 
         <Col span={4}>
           <Form.Item

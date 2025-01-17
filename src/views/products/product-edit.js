@@ -50,8 +50,8 @@ const ProductsEdit = () => {
   const createSelectObject = (item) => {
     if (!item) return null;
     return {
-      label: item.translation ? item.translation.title : item.title,
-      value: item.id,
+      label: item ? item.title : item.title,
+      value: item._id,
     };
   };
 
@@ -77,15 +77,15 @@ const ProductsEdit = () => {
               }
             } else {
               extras[extra.extra_group_id] = {
-                label: extra.group.translation?.title,
+                label: extra.group?.title,
                 value: extra.extra_group_id,
                 id: extra.extra_group_id,
-                stock_id: stock.id,
+                stock_id: stock._id,
                 values: [
                   {
-                    value: extra.id,
+                    value: extra._id,
                     label: extra.value,
-                    stock_id: stock.id,
+                    stock_id: stock._id,
                   },
                 ],
               };

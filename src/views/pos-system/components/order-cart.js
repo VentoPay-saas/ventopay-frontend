@@ -91,6 +91,7 @@ export default function OrderCart() {
   }, []);
 
   function formatProducts(list) {
+    console.log("🚀 ~ formatProducts ~ list:", list)
     const products = list.map((item) => ({
       quantity: item.quantity,
       stock_id: item.stockID ? item.stockID?.id : item.stock?.id,
@@ -102,7 +103,7 @@ export default function OrderCart() {
 
     const result = {
       products,
-      currency_id: currency?.id,
+      currency_id: currency?._id,
       // coupon:
       //   coupons?.find((item) => item?.bag_id === currentBag && item?.verified)
       //     ?.coupon || undefined,
@@ -146,7 +147,9 @@ export default function OrderCart() {
   ]);
 
   function productCalculate() {
+
     const products = formatProducts(filteredCartItems);
+    console.log("🚀 ~ productCalculate ~ products:", products)
 
     setLoading(true);
     orderService

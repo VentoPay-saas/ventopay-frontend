@@ -10,6 +10,7 @@ const initialState = {
   params: {
     page: 1,
     perPage: 10,
+    addon: 0
   },
   links: null,
   meta: {},
@@ -52,21 +53,21 @@ const productSlice = createSlice({
     builder.addCase(fetchProducts.fulfilled, (state, action) => {
       const { payload } = action;
       state.loading = false;
-      state.products = payload.data.map((item) => ({
+      state.products = payload.data.data.map((item) => ({
         ...item,
-        id: item.id,
-        uuid: item.uuid,
-        name: item.translation ? item.translation.title : 'no name',
+        id: item._id,
+        uuid: item._id,
+        name: item ? item.title : 'no name',
         active: item.active,
         img: item.img,
-        category_name: item.category?.translation
-          ? item.category.translation.title
+        category_name: item.category
+          ? item.category.title
           : 'no name',
       }));
-      state.meta = payload.meta;
-      state.links = payload.links;
-      state.params.page = payload.meta.current_page;
-      state.params.perPage = payload.meta.per_page;
+      state.meta = payload.data.meta;
+      state.links = payload.data.links;
+      state.params.page = payload.data.meta.current_page;
+      state.params.perPage = payload.data.meta.per_page;
       state.error = '';
     });
     builder.addCase(fetchProducts.rejected, (state, action) => {

@@ -424,13 +424,13 @@ const adminRoutes = [
         id: 'payments',
         children: [],
       },
-      // {
-      //   name: 'payment.payloads',
-      //   icon: 'payload',
-      //   url: 'payment-payloads',
-      //   id: 'payment.payloads',
-      //   children: [],
-      // },
+      {
+        name: 'payment.payloads',
+        icon: 'payload',
+        url: 'payment-payloads',
+        id: 'payment.payloads',
+        children: [],
+      },
       // {
       //   name: 'sms-payload',
       //   icon: 'message',

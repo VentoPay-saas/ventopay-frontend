@@ -68,8 +68,8 @@ export default function OrderTabs() {
         ?.filter((item) => item?.tag === 'cash' || item?.tag === 'wallet')
         .map((item) => ({
           label: t(item?.tag),
-          value: item?.id,
-          key: item?.id,
+          value: item?._id,
+          key: item?._id,
         })),
     );
   };
@@ -86,13 +86,15 @@ export default function OrderTabs() {
       return formatUser(res.data);
     });
   }
+  console.log("users:", users);
+
 
   function formatUser(data) {
     if (!data) return;
     if (isArray(data)) {
       return data.map((item) => ({
         label: `${item.firstname} ${item.lastname ? item.lastname : ''}`,
-        value: item.id,
+        value: item._id,
       }));
     } else {
       return {
@@ -103,7 +105,7 @@ export default function OrderTabs() {
   }
 
   function selectUser(userObj) {
-    const user = users.find((item) => item.id === userObj.value);
+    const user = users.find((item) => item._id === userObj.value);
     dispatch(
       setCartData({
         user: userObj,
@@ -249,7 +251,7 @@ export default function OrderTabs() {
                 />
               </Form.Item>
             </Col>
-            <Col span={3} style={{display: 'flex', justifyContent: 'flex-end'}}>
+            <Col span={3} style={{ display: 'flex', justifyContent: 'flex-end' }}>
               <Form.Item>
                 <Button icon={<UserAddOutlined />} onClick={goToAddClient} />
               </Form.Item>

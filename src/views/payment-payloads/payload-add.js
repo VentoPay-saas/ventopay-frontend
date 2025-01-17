@@ -38,6 +38,7 @@ export default function PaymentPayloadAdd() {
   const [image, setImage] = useState(
     activeMenu.data?.image ? [activeMenu.data?.image] : [],
   );
+  console.log("🚀 ~ PaymentPayloadAdd ~ image:", image)
   const { defaultCurrency } = useSelector(
     (state) => state.currency,
     shallowEqual,
@@ -47,6 +48,7 @@ export default function PaymentPayloadAdd() {
   const navigate = useNavigate();
 
   const onFinish = (values) => {
+    console.log("🚀 ~ onFinish ~ values:", activePayment)
     delete values.payment_id;
     if (activePayment?.label === 'FlutterWave' && !image[0]) {
       toast.error(t('choose.payload.image'));
@@ -60,10 +62,11 @@ export default function PaymentPayloadAdd() {
           ...values,
           logo: image[0] ? image[0].name : undefined,
           paypal_currency: values.paypal_currency?.label,
-          currency: !!values.currency?.label ? values.currency?.label : values.currency ,
+          currency: !!values.currency?.label ? values.currency?.label : values.currency,
           paypal_validate_ssl: values?.paypal_validate_ssl
             ? Number(values?.paypal_validate_ssl)
             : undefined,
+          type: activePayment.label
         },
       })
       .then(() => {
@@ -93,8 +96,8 @@ export default function PaymentPayloadAdd() {
           .filter((item) => item.tag !== 'cash')
           .map((item) => ({
             label: item.tag[0].toUpperCase() + item.tag.substring(1),
-            value: item.id,
-            key: item.id,
+            value: item._id,
+            key: item._id,
           }));
         setPaymentList(body);
       })
@@ -178,7 +181,7 @@ export default function PaymentPayloadAdd() {
           <Col
             span={
               activePayment?.label === 'Cash' ||
-              activePayment?.label === 'Wallet'
+                activePayment?.label === 'Wallet'
                 ? 12
                 : 24
             }
@@ -203,7 +206,7 @@ export default function PaymentPayloadAdd() {
           </Col>
 
           {activePayment?.label === 'Cash' ||
-          activePayment?.label === 'Wallet' ? (
+            activePayment?.label === 'Wallet' ? (
             ''
           ) : (
             <>

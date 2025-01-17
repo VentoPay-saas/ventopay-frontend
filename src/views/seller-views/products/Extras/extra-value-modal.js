@@ -35,8 +35,8 @@ export default function ExtraValueModal({
       const body = {
         ...modal,
         extra_group_id: {
-          label: modal?.group?.translation?.title,
-          value: modal?.group?.id,
+          label: modal?.group?.title,
+          value: modal?.group?._id,
         },
         value: modal.value,
       };

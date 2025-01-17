@@ -38,7 +38,7 @@ export default function Payments() {
           <Switch
             onChange={() => {
               setIsModalVisible(true);
-              setId(row.id);
+              setId(row._id);
             }}
             checked={active}
           />

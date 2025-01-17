@@ -147,8 +147,8 @@ export default function OrderList() {
             <Tag color='cyan'>{t(status)}</Tag>
           )}
           {status !== 'delivered' &&
-          status !== 'canceled' &&
-          !row.deleted_at ? (
+            status !== 'canceled' &&
+            !row.deleted_at ? (
             <EditOutlined
               onClick={(e) => {
                 e.stopPropagation();

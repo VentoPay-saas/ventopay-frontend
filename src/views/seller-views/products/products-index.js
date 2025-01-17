@@ -316,7 +316,7 @@ const ProductsIndex = ({ next, action_type = '', isRequest }) => {
               <Card title={t('basic.info')}>
                 <Row>
                   <Col span={24}>
-                    {languages.map((item) => (
+                    {/* {languages.map((item) => (
                       <Form.Item
                         key={'name' + item.id}
                         label={t('name')}
@@ -331,10 +331,24 @@ const ProductsIndex = ({ next, action_type = '', isRequest }) => {
                       >
                         <Input />
                       </Form.Item>
-                    ))}
+                    ))} */}
+
+                    <Form.Item
+                      key={'name'}
+                      label={t('name')}
+                      name={`title`}
+                      rules={[
+                        {
+                          required: true,
+                          message: t('required'),
+                        },
+                      ]}
+                    >
+                      <Input />
+                    </Form.Item>
                   </Col>
                   <Col span={24}>
-                    {languages.map((item) => (
+                    {/* {languages.map((item) => (
                       <Form.Item
                         key={'description' + item.id}
                         label={t('description')}
@@ -349,7 +363,20 @@ const ProductsIndex = ({ next, action_type = '', isRequest }) => {
                       >
                         <TextArea maxLength={250} rows={3} />
                       </Form.Item>
-                    ))}
+                    ))} */}
+                    <Form.Item
+                      key={'description'}
+                      label={t('description')}
+                      name={`description`}
+                      rules={[
+                        {
+                          required: true,
+                          message: t('required'),
+                        },
+                      ]}
+                    >
+                      <TextArea maxLength={250} rows={3} />
+                    </Form.Item>
                   </Col>
                 </Row>
               </Card>

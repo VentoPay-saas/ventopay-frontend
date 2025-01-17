@@ -69,12 +69,12 @@ const PaymentPayloadEdit = () => {
       .getById(id)
       .then(({ data }) => {
         setActivePayment({
-          label: data.payment.tag,
-          value: data.payment.id,
+          label: data.payment_id.tag,
+          value: data.payment_id.id,
         });
         form.setFieldsValue({
           ...data.payload,
-          payment_id: data.payment.tag,
+          payment_id: data.payment_id.tag,
           paypal_validate_ssl: Boolean(data.payload.paypal_validate_ssl),
         });
         setImage([createImage(data.payload.logo)]);
@@ -101,6 +101,7 @@ const PaymentPayloadEdit = () => {
         paypal_validate_ssl: values?.paypal_validate_ssl
           ? Number(values.paypal_validate_ssl)
           : undefined,
+        type: activePayment.label
       },
     };
 
@@ -157,7 +158,7 @@ const PaymentPayloadEdit = () => {
             <Col
               span={
                 activePayment?.label === 'cash' ||
-                activePayment?.label === 'wallet'
+                  activePayment?.label === 'wallet'
                   ? 12
                   : 24
               }
@@ -183,7 +184,7 @@ const PaymentPayloadEdit = () => {
             </Col>
 
             {activePayment?.label === 'cash' ||
-            activePayment?.label === 'wallet' ? (
+              activePayment?.label === 'wallet' ? (
               ''
             ) : (
               <>

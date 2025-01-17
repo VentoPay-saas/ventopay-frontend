@@ -84,10 +84,10 @@ export default function ProductCard() {
                 <Card
                   className='products-col'
                   key={item.id}
-                  cover={<img alt={item.name} src={getImage(item.img)} />}
+                  cover={<img alt={item.name} src={getImage(item.images[0].url)} />}
                   onClick={() => addProductToCart(item)}
                 >
-                  <Meta title={item?.translation?.title} />
+                  <Meta title={item?.title} />
                   <div className='preview'>
                     <PlusOutlined />
                   </div>
