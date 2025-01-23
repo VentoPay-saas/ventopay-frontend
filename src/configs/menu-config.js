@@ -23,13 +23,13 @@ const adminRoutes = [
         id: 'orders-board',
         children: [],
       },
-      {
-        name: 'reviews',
-        icon: 'star',
-        url: 'reviews/order',
-        id: 'order-review_01',
-        children: [],
-      },
+      // {
+      //   name: 'reviews',
+      //   icon: 'star',
+      //   url: 'reviews/order',
+      //   id: 'order-review_01',
+      //   children: [],
+      // },
       {
         name: 'order.status',
         icon: 'RiFileSettingsLine',
@@ -58,13 +58,13 @@ const adminRoutes = [
         id: 'tag',
         children: [],
       },
-      {
-        name: 'shop.reviews',
-        icon: 'star',
-        url: 'shop-reviews',
-        id: 'shop-review_01',
-        children: [],
-      },
+      // {
+      //   name: 'shop.reviews',
+      //   icon: 'star',
+      //   url: 'shop-reviews',
+      //   id: 'shop-review_01',
+      //   children: [],
+      // },
     ],
   },
   {
@@ -120,13 +120,13 @@ const adminRoutes = [
       //   id: 'menu.categories',
       //   children: [],
       // },
-      {
-        name: 'product.reviews',
-        icon: 'skin',
-        url: 'reviews/product',
-        id: 'product-review',
-        children: [],
-      },
+      // {
+      //   name: 'product.reviews',
+      //   icon: 'skin',
+      //   url: 'reviews/product',
+      //   id: 'product-review',
+      //   children: [],
+      // },
     ],
   },
   {
@@ -518,13 +518,13 @@ const adminRoutes = [
         id: 'languages_02',
         children: [],
       },
-      {
-        name: 'translations',
-        icon: 'translation',
-        url: 'settings/translations',
-        id: 'translations_01',
-        children: [],
-      },
+      // {
+      //   name: 'translations',
+      //   icon: 'translation',
+      //   url: 'settings/translations',
+      //   id: 'translations_01',
+      //   children: [],
+      // },
       // {
       //   icon: 'database',
       //   url: 'settings/backup',

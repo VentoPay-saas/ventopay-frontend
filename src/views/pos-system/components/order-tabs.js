@@ -86,7 +86,6 @@ export default function OrderTabs() {
       return formatUser(res.data);
     });
   }
-  console.log("users:", users);
 
 
   function formatUser(data) {
@@ -99,7 +98,7 @@ export default function OrderTabs() {
     } else {
       return {
         label: `${data.firstname} ${data.lastname}`,
-        value: data.id,
+        value: data._id,
       };
     }
   }
@@ -109,7 +108,7 @@ export default function OrderTabs() {
     dispatch(
       setCartData({
         user: userObj,
-        userUuid: user?.uuid,
+        userUuid: user._id,
         bag_id: currentBag,
         userOBJ: user,
         phone: user?.phone,
@@ -136,7 +135,7 @@ export default function OrderTabs() {
       const currentCurrency = currencies.find((item) => item.default);
       const formCurrency = {
         label: `${currentCurrency?.title} (${currentCurrency?.symbol})`,
-        value: currentCurrency?.id,
+        value: currentCurrency?._id,
       };
       dispatch(
         setCartData({
@@ -151,8 +150,8 @@ export default function OrderTabs() {
     } else {
       const formCurrency = {
         label: `${currency?.title} (${currency?.symbol})`,
-        value: currency?.id,
-        key: currency?.id,
+        value: currency?._id,
+        key: currency?._id,
       };
       dispatch(
         setCartData({
