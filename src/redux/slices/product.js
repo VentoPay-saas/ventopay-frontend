@@ -59,7 +59,7 @@ const productSlice = createSlice({
         uuid: item._id,
         name: item ? item.title : 'no name',
         active: item.active,
-        img: item.img,
+        img: item.images,
         category_name: item.category
           ? item.category.title
           : 'no name',
@@ -86,16 +86,15 @@ const productSlice = createSlice({
       state.products = payload.data.map((item) => ({
         ...item,
         id: item.id,
-        uuid: item.uuid,
-        name: item.product?.translation
-          ? item.product?.translation.title
+        uuid: item._id,
+        name: item.product ? item.product?.title
           : 'no name',
         active: item.active,
         img: item?.img,
-        category_name: item.product?.category?.translation
-          ? item.product?.category.translation.title
+        category_name: item.product?.category
+          ? item.product?.category.title
           : 'no name',
-        unit: item?.unit,
+        unit: item?.unit_id,
       }));
       state.meta = payload.meta;
       state.links = payload.links;
@@ -120,11 +119,11 @@ const productSlice = createSlice({
         ...item,
         id: item.id,
         uuid: item.uuid,
-        name: item?.translation ? item?.translation.title : 'no name',
+        name: item ? item?.title : 'no name',
         active: item.active,
         img: item?.img,
-        category_name: item?.category?.translation
-          ? item?.category?.translation?.title
+        category_name: item?.category
+          ? item?.category?.title
           : 'no name',
       }));
       state.meta = payload.meta;

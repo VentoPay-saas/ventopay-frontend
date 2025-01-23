@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { BsFillGiftFill } from 'react-icons/bs';
 import { getCartData } from '../../../redux/selectors/cartSelector';
 import RiveResult from '../../../components/rive-result';
+import { setCartData, setCurrentBag } from 'redux/slices/cart';
 
 export default function ProductCard() {
   const colLg = {
@@ -19,6 +20,10 @@ export default function ProductCard() {
     xxl: 6,
   };
   const { t } = useTranslation();
+  const { currentBag } = useSelector(
+    (state) => state.cart,
+    shallowEqual,
+  );
   const [extrasModal, setExtrasModal] = useState(null);
   const dispatch = useDispatch();
   const { products, loading, meta, params } = useSelector(
@@ -68,6 +73,18 @@ export default function ProductCard() {
     setExtrasModal(item);
   };
 
+  function formatShop(shop) {
+    if (!shop) {
+      return null;
+    }
+    return {
+      label: shop?.title,
+      value: shop._id,
+    };
+  }
+
+
+
   return (
     <div className='px-2'>
       {loading ? (
@@ -83,9 +100,16 @@ export default function ProductCard() {
               <Col {...colLg} key={index}>
                 <Card
                   className='products-col'
-                  key={item.id}
-                  cover={<img alt={item.name} src={getImage(item.images[0].url)} />}
-                  onClick={() => addProductToCart(item)}
+                  key={item._id}
+                  cover={<img alt={item.title} src={getImage(item.images[0].url)} />}
+                  onClick={() => {
+                    dispatch(
+                      setCartData({
+                        bag_id: currentBag,
+                        shop: formatShop(item?.shop_id)
+                      }),
+                    );; addProductToCart(item)
+                  }}
                 >
                   <Meta title={item?.title} />
                   <div className='preview'>

@@ -79,19 +79,41 @@ export default function OrderCart() {
     dispatch(addToCart({ ...item, quantity: -1 }));
   };
 
+  // function getShops() {
+  //   shopService.getById(data?.shop?.value).then((res) => setShops(res.data));
+  // }
+
+  // useEffect(() => {
+  //   if (data?.shop?.value) {
+  //     getShops();
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
+
   function getShops() {
-    shopService.getById(data?.shop?.value).then((res) => setShops(res.data));
+    if (!data?.shop?.value) return; // Prevent unnecessary calls
+    setLoading(true);
+    shopService
+      .getById(data.shop.value)
+      .then((res) => {
+        setShops(res.data);
+      })
+      .catch((err) => {
+        console.error('Error fetching shops:', err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }
 
   useEffect(() => {
     if (data?.shop?.value) {
       getShops();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [data?.shop?.value]);
+
 
   function formatProducts(list) {
-    console.log("🚀 ~ formatProducts ~ list:", list)
     const products = list.map((item) => ({
       quantity: item.quantity,
       stock_id: item.stockID ? item.stockID?.id : item.stock?.id,
@@ -147,21 +169,18 @@ export default function OrderCart() {
   ]);
 
   function productCalculate() {
-
     const products = formatProducts(filteredCartItems);
-    console.log("🚀 ~ productCalculate ~ products:", products)
-
     setLoading(true);
     orderService
       .calculate(products)
       .then(({ data }) => {
         const product = data.data;
         const items = product.stocks.map((item) => ({
-          ...filteredCartItems.find((el) => el.id === item.id),
+          ...filteredCartItems.find((el) => el._id === item.stock_id),
           ...item,
-          ...item.stock.countable,
-          stock: item.stock.stock_extras,
-          stocks: item.stock.stock_extras,
+          ...item.stock?.countable,
+          stock: item.stock?.stock_extras,
+          stocks: item.stock?.stock_extras,
           stockID: item.stock,
         }));
         let shopList = [{ ...shops, products: items }];
@@ -240,7 +259,7 @@ export default function OrderCart() {
       .create(body)
       .then((response) => {
         dispatch(setCartOrder(response.data));
-        createTransaction(response.data.id, payment);
+        createTransaction(response.data._id, payment);
         form.resetFields();
       })
       .catch((err) => console.error(err))
@@ -256,10 +275,12 @@ export default function OrderCart() {
       )}
       <div className='card-save'>
         {cartShops?.map((shop, idx) => (
-          <div key={shop.uuid + '_' + idx}>
+          console.log(shop, "shoooooooooooooooooooooooooooop["),
+
+          <div key={shop._id + '_' + idx}>
             <div className='all-price'>
               <span className='title'>
-                {shop?.translation?.title} {t('shop')}
+                {shop?.title} {t('shop')}
               </span>
               <span className='counter'>
                 {shop?.products?.length}{' '}
@@ -269,6 +290,8 @@ export default function OrderCart() {
             <Divider />
             {shop?.products?.map((item, index) =>
               !item?.bonus ? (
+                console.log("item", item),
+
                 <div
                   className='custom-cart-container'
                   key={item?.id + '_' + index}
@@ -277,7 +300,7 @@ export default function OrderCart() {
                     <Image
                       width={70}
                       height='auto'
-                      src={getImage(item?.img)}
+                      src={getImage(shop?.images[0]?.url)}
                       preview
                       placeholder
                       className='rounded'
@@ -285,7 +308,7 @@ export default function OrderCart() {
                     <Col span={18} className='product-col'>
                       <div>
                         <span className='product-name'>
-                          {item?.translation?.title}
+                          {item?.title}
                         </span>
                         <br />
                         <Space wrap className='mt-2'>
@@ -308,7 +331,7 @@ export default function OrderCart() {
                                 key={idk + '-' + addon?.quantity}
                                 className='extras-text rounded pr-2 pl-2'
                               >
-                                {addon?.product?.translation?.title} x{' '}
+                                {addon?.product?.title} x{' '}
                                 {addon?.quantity}
                               </span>
                             );
@@ -331,7 +354,7 @@ export default function OrderCart() {
                             />
                             <span>
                               {item?.countable_quantity * (item?.interval || 1)}
-                              {item?.unit?.translation?.title || ''}
+                              {item?.unit_id?.title || ''}
                             </span>
                             <Button
                               className='button-counter'
@@ -353,7 +376,7 @@ export default function OrderCart() {
                       <Input
                         placeholder={t('note')}
                         className='w-100 mt-2'
-                        defaultValue={notes[item.stockID.id]}
+                        defaultValue={notes[item.stockID?.id]}
                         onBlur={(event) =>
                           dispatch(
                             addOrderNotes({
@@ -432,7 +455,7 @@ export default function OrderCart() {
                               />
                               <span>
                                 {(item?.quantity ?? 0) * (item?.interval ?? 1)}
-                                {item?.unit?.translation?.title}
+                                {item?.unit_id?.title}
                               </span>
                               <Button
                                 className='button-counter'
