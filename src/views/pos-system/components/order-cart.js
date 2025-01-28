@@ -46,10 +46,12 @@ export default function OrderCart() {
   const dispatch = useDispatch();
 
   const { cartItems, cartShops, currentBag, total, currency, notes } =
+
     useSelector((state) => state.cart, shallowEqual);
   const filteredCartItems = useSelector((state) => getCartItems(state.cart));
   const data = useSelector((state) => getCartData(state.cart));
-
+  console.log("🚀 ~ OrderCart ~ currency:", currency)
+  console.log("🚀 ~ OrderCart ~ cartShops:", cartShops)
   const [shops, setShops] = useState([]);
   const [loading, setLoading] = useState(false);
   const [orderId, setOrderId] = useState(null);
@@ -229,7 +231,7 @@ export default function OrderCart() {
     }
     setLoading(true);
     const products = cartShops?.[0]?.products?.map((cart) => ({
-      stock_id: cart?.stockID?.id,
+      stock_id: cart?.stockID?.id || cart?.stock_id,
       quantity: cart?.countable_quantity,
       bonus: cart?.bonus,
       addons: cart?.addons?.map((addon) => ({
@@ -239,7 +241,7 @@ export default function OrderCart() {
     }));
     const body = {
       user_id: data.user?.value,
-      currency_id: currency?.id,
+      currency_id: currency?._id,
       rate: currency.rate,
       shop_id: data.shop.value,
       // coupon:
@@ -297,14 +299,14 @@ export default function OrderCart() {
                   key={item?.id + '_' + index}
                 >
                   <Row className='product-row'>
-                    <Image
+                    {/* <Image
                       width={70}
                       height='auto'
                       src={getImage(shop?.images[0]?.url)}
                       preview
                       placeholder
                       className='rounded'
-                    />
+                    /> */}
                     <Col span={18} className='product-col'>
                       <div>
                         <span className='product-name'>
@@ -337,7 +339,7 @@ export default function OrderCart() {
                             );
                           })}
                         </Space>
-                        <div className='product-counter'>
+                        {/* <div className='product-counter'>
                           <span>
                             {numberToPrice(
                               item?.total_price || item?.price,
@@ -369,7 +371,7 @@ export default function OrderCart() {
                               icon={<DeleteOutlined size={14} />}
                             />
                           </div>
-                        </div>
+                        </div> */}
                       </div>
                     </Col>
                     <Col span={24}>

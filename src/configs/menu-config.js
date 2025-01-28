@@ -86,26 +86,26 @@ const adminRoutes = [
         id: 'addons',
         children: [],
       },
-      // {
-      //   name: 'extras',
-      //   icon: 'branches',
-      //   url: 'catalog/extras/list',
-      //   id: 'extras',
-      //   children: [
-      //     {
-      //       name: 'extra.group',
-      //       icon: 'groupOutlined',
-      //       url: 'catalog/extras',
-      //       id: 'extra.group',
-      //     },
-      //     {
-      //       name: 'extra.value',
-      //       icon: 'unGroupOutlined',
-      //       url: 'catalog/extras/value',
-      //       id: 'extra.value',
-      //     },
-      //   ],
-      // },
+      {
+        name: 'extras',
+        icon: 'branches',
+        url: 'catalog/extras/list',
+        id: 'extras',
+        children: [
+          {
+            name: 'extra.group',
+            icon: 'groupOutlined',
+            url: 'catalog/extras',
+            id: 'extra.group',
+          },
+          {
+            name: 'extra.value',
+            icon: 'unGroupOutlined',
+            url: 'catalog/extras/value',
+            id: 'extra.value',
+          },
+        ],
+      },
       {
         name: 'categories',
         icon: 'appStore',
@@ -225,26 +225,26 @@ const adminRoutes = [
     id: 'customer.management_02',
     icon: 'wallet',
     submenu: [
-      {
-        name: 'payment.to.sellers',
-        icon: 'moneyOut',
-        id: 'withdraws',
-        url: 'payments/sellers',
-        children: [
-          {
-            name: 'payment.to.sellers',
-            icon: 'moneyOut',
-            url: 'withdraws/seller',
-            id: 'withdraws.seller_uncomplete',
-          },
-          // {
-          //   name: 'completed.payments',
-          //   icon: 'check',
-          //   url: 'completed-withdraws/seller',
-          //   id: 'withdraws.completed_seller_uncomplete',
-          // },
-        ],
-      },
+      // {
+      //   name: 'payment.to.sellers',
+      //   icon: 'moneyOut',
+      //   id: 'withdraws',
+      //   url: 'payments/sellers',
+      //   children: [
+      //     {
+      //       name: 'payment.to.sellers',
+      //       icon: 'moneyOut',
+      //       url: 'withdraws/seller',
+      //       id: 'withdraws.seller_uncomplete',
+      //     },
+      //     {
+      //       name: 'completed.payments',
+      //       icon: 'check',
+      //       url: 'completed-withdraws/seller',
+      //       id: 'withdraws.completed_seller_uncomplete',
+      //     },
+      //   ],
+      // },
       {
         name: 'users',
         icon: 'user',

@@ -25,6 +25,7 @@ export default function SocialSettings() {
   }, []);
 
   const createSettings = (list) => {
+    console.log("🚀 ~ createSettings ~ list:", list)
     const result = list.map((item) => ({
       [item.key]: item.value,
     }));
@@ -94,8 +95,9 @@ export default function SocialSettings() {
                 name='instagram'
                 rules={[
                   {
+                    type: "url",
                     required: true,
-                    message: t('required'),
+                    message: t('invalid.url'),
                   },
                 ]}
               >
@@ -109,7 +111,9 @@ export default function SocialSettings() {
                 rules={[
                   {
                     required: true,
-                    message: t('required'),
+                    type: "url",
+
+                    message: t('invalid.url'),
                   },
                 ]}
               >
@@ -123,7 +127,8 @@ export default function SocialSettings() {
                 rules={[
                   {
                     required: true,
-                    message: t('required'),
+                    message: t('invalid.url'),
+                    type: "url",
                   },
                 ]}
               >

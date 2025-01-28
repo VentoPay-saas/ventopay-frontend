@@ -32,8 +32,8 @@ export default function ExtraGroupModal({ modal, handleCancel, onSuccess }) {
   }
 
   useEffect(() => {
-    if (modal?.id) {
-      fetchExtraGroup(modal.id);
+    if (modal?._id) {
+      fetchExtraGroup(modal._id);
     }
   }, [modal]);
 
@@ -55,8 +55,8 @@ export default function ExtraGroupModal({ modal, handleCancel, onSuccess }) {
       title: values.title,
       type: 'text',
     };
-    if (modal?.id) {
-      updateExtraGroup(modal?.id, body);
+    if (modal?._id) {
+      updateExtraGroup(modal?._id, body);
     } else {
       createExtraGroup(body);
     }
@@ -89,7 +89,7 @@ export default function ExtraGroupModal({ modal, handleCancel, onSuccess }) {
 
   return (
     <Modal
-      title={modal?.id ? t('edit.extra.group') : t('add.extra.group')}
+      title={modal?._id ? t('edit.extra.group') : t('add.extra.group')}
       visible={!!modal}
       onCancel={handleCancel}
       footer={[

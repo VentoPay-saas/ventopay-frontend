@@ -28,6 +28,7 @@ export default function UserModal({ visible, handleCancel }) {
   const [loadingBtn, setLoadingBtn] = useState(false);
   const [data, setData] = useState({});
   const [image, setImage] = useState([]);
+  console.log("🚀 ~ UserModal ~ image:", image)
   const [error, setError] = useState(null);
   const { isDemo, demoSeller } = useDemo();
 
@@ -53,7 +54,7 @@ export default function UserModal({ visible, handleCancel }) {
   const onFinish = (values) => {
     console.log('value: ', values);
     const payload = {
-      images: image[0] ? [image[0]?.name] : undefined,
+      images: image[0] ? [image[0]?.url] : undefined,
       firstname: values.firstname,
       lastname: values.lastname,
       phone: values.phone,

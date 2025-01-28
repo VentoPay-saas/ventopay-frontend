@@ -67,7 +67,7 @@ export default function ExtraGroup() {
     return shopService.search(params).then((res) => {
       setLinks(res.links);
       return res.data.map((item) => ({
-        label: item.translation !== null ? item.translation.title : 'no name',
+        label: item !== null ? item.title : 'no name',
         value: item.id,
       }));
     });
@@ -87,16 +87,16 @@ export default function ExtraGroup() {
   const [columns, setColumns] = useState([
     {
       title: t('id'),
-      dataIndex: 'id',
-      key: 'id',
+      dataIndex: '_id',
+      key: '_id',
       is_show: true,
     },
     {
       title: t('title'),
-      dataIndex: 'translation',
-      key: 'translation',
+      dataIndex: 'title',
+      key: 'title',
       is_show: true,
-      render: (translation) => translation?.title,
+      render: (title) => title,
     },
     {
       title: t('created.by'),
@@ -106,7 +106,7 @@ export default function ExtraGroup() {
       render: (shop) =>
         shop ? (
           <span onClick={() => goToShop(shop)} className='text-hover'>
-            {shop?.translation?.title}
+            {shop?.title}
           </span>
         ) : (
           t('admin')
@@ -126,7 +126,7 @@ export default function ExtraGroup() {
           <Button
             type='primary'
             icon={<EyeOutlined />}
-            onClick={() => setShow(record.id)}
+            onClick={() => setShow(record._id)}
           />
           <Button
             type='primary'
@@ -139,7 +139,7 @@ export default function ExtraGroup() {
             icon={<DeleteOutlined />}
             onClick={() => {
               setIsModalVisible(true);
-              setId([record.id]);
+              setId([record._id]);
               setText(true);
             }}
           />
@@ -281,7 +281,7 @@ export default function ExtraGroup() {
           loading={loading}
           fetchOptions={fetchUserShop}
           style={{ minWidth: 180, marginLeft: '8px' }}
-          onChange={(e) => handleFilter( e,  "selectedShop")}
+          onChange={(e) => handleFilter(e, "selectedShop")}
           value={activeMenu.data?.selectedShop}
         />
       </div>
@@ -296,7 +296,7 @@ export default function ExtraGroup() {
         pagination={{
           pageSize: paramsData.perPage,
           page: activeMenu.data?.page || 1,
-          total: meta.total,
+          total: meta?.total,
           defaultCurrent: activeMenu.data?.page,
           current: activeMenu.data?.page,
         }}

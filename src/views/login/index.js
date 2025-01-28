@@ -83,7 +83,7 @@ const Login = () => {
     authService
       .login(body)
       .then((res) => {
-        console.log(res);
+        console.log("🚀 ~ .then ~ res:", res)
         const user = {
           role: res.data.role,
           urls: data[res.data.role],
@@ -110,7 +110,7 @@ const Login = () => {
           });
           return;
         }
-        localStorage.setItem('token', res.data.access_token);
+        localStorage.setItem('token', res.token);
         dispatch(setUserData(user));
         fetchUserSettings(user?.role);
       })
