@@ -124,10 +124,10 @@ const Sidebar = () => {
   const menuList =
     searchTerm.length > 0
       ? optionList.filter((input) =>
-          t(input?.name ?? '')
-            .toUpperCase()
-            .includes(searchTerm.toUpperCase())
-        )
+        t(input?.name ?? '')
+          .toUpperCase()
+          .includes(searchTerm.toUpperCase())
+      )
       : data;
   return (
     <>
@@ -148,7 +148,7 @@ const Sidebar = () => {
               <img
                 className='globalOutlined'
                 src={
-                  languages.find((item) => item.locale === i18n.language)?.img
+                  languages.find((item) => item.locale === i18n.language)?.images[0]
                 }
                 alt={user.fullName}
               />

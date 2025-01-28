@@ -23,7 +23,6 @@ const Languages = () => {
   const { t } = useTranslation();
   const [loadingBtn, setLoadingBtn] = useState(false);
   const [id, setId] = useState(null);
-  console.log("🚀 ~ Languages ~ id:", id)
   const [type, setType] = useState('');
   const { setIsModalVisible } = useContext(Context);
 
@@ -62,7 +61,7 @@ const Languages = () => {
       render: (img, row) => {
         return (
           <Image
-            src={getImage(img)}
+            src={getImage(row?.images[0])}
             alt='img_gallery'
             width={100}
             className='rounded'

@@ -30,13 +30,13 @@ export default function ExtraValueModal({
   );
 
   useEffect(() => {
-    if (modal?.id) {
+    if (modal?._id) {
       setType(modal.group.type);
       const body = {
         ...modal,
         extra_group_id: {
-          label: modal?.group?.translation?.title,
-          value: modal?.group?.id,
+          label: modal?.group?.title,
+          value: modal?.group?._id,
         },
         value: modal.value,
       };
@@ -95,8 +95,8 @@ export default function ExtraValueModal({
       value: getValue(type, values.value),
     };
 
-    if (modal?.id) {
-      updateExtra(modal.id, body);
+    if (modal?._id) {
+      updateExtra(modal._id, body);
     } else {
       createExtra(body);
     }
@@ -149,16 +149,16 @@ export default function ExtraValueModal({
     console.log('search => ', params);
     return extraService.getAllGroups(params).then((res) =>
       res?.data?.map((item) => ({
-        value: item?.id,
-        label: item?.translation?.title,
-        key: item?.id,
+        value: item?._id,
+        label: item?.title,
+        key: item?._id,
       }))
     );
   }
 
   return (
     <Modal
-      title={modal?.id ? t('edit.extra') : t('add.extra')}
+      title={modal?._id ? t('edit.extra') : t('add.extra')}
       visible={!!modal}
       onCancel={handleCancel}
       footer={[

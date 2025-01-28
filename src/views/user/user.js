@@ -148,23 +148,23 @@ const User = () => {
   const goToEdit = (row) => {
     dispatch(
       addMenu({
-        url: `user/${row.uuid}`,
+        url: `user/${row._id}`,
         id: 'user_edit',
         name: 'User edit',
       }),
     );
-    navigate(`/user/${row.uuid}`, { state: 'user' });
+    navigate(`/user/${row._id}`, { state: 'user' });
   };
 
   const goToDetail = (row) => {
     dispatch(
       addMenu({
-        url: `users/user/${row.uuid}`,
+        url: `users/user/${row._id}`,
         id: 'user_info',
         name: t('user.info'),
       }),
     );
-    navigate(`/users/user/${row.uuid}`, { state: { user_id: row.id } });
+    navigate(`/users/user/${row._id}`, { state: { user_id: row._id } });
   };
 
   const goToAddClient = () => {

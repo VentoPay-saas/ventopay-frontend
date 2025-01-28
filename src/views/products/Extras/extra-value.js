@@ -53,8 +53,8 @@ export default function ExtraValue() {
     return shopService.search(params).then((res) => {
       setLinks(res.links);
       return res.data.map((item) => ({
-        label: item.translation !== null ? item.translation.title : 'no name',
-        value: item.id,
+        label: item !== null ? item.title : 'no name',
+        value: item._id,
       }));
     });
   }
@@ -77,8 +77,8 @@ export default function ExtraValue() {
   const [columns, setColumns] = useState([
     {
       title: t('id'),
-      dataIndex: 'id',
-      key: 'id',
+      dataIndex: '_id',
+      key: '_id',
       is_show: true,
     },
     {
@@ -86,8 +86,10 @@ export default function ExtraValue() {
       dataIndex: 'extra_group_id',
       key: 'extra_group_id',
       is_show: true,
-      render: (id) =>
-        extraGroups?.find((item) => item.id === id)?.translation?.title,
+      render: (_, row) =>
+
+        row?.group?.title
+      // extraGroups?.find((item) => item._id === id)?.title,
     },
     {
       title: t('created.by'),
@@ -100,7 +102,7 @@ export default function ExtraValue() {
             onClick={() => goToShop(row?.group?.shop)}
             className='text-hover'
           >
-            {row.group?.shop?.translation?.title}
+            {row.group?.shop?.title}
           </span>
         ) : (
           t('admin')
@@ -144,7 +146,7 @@ export default function ExtraValue() {
             type='primary'
             danger
             icon={<DeleteOutlined />}
-            onClick={() => setId([record.id])}
+            onClick={() => setId([record._id])}
           />
         </Space>
       ),
@@ -238,7 +240,7 @@ export default function ExtraValue() {
 
   return (
     <Card
-      title={t('extra.value')}
+      title={t('extra.value222')}
       extra={
         <Space wrap>
           <InfiniteSelect
