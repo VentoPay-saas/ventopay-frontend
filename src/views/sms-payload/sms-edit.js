@@ -41,7 +41,7 @@ export default function SmsPayloadEdit() {
     smsService
       .getById(type)
       .then((res) => {
-        const data = res.data;
+        const data = res.data[0];
         form.setFieldsValue({
           default: Boolean(data.default),
           ...data.payload,

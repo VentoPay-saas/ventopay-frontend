@@ -29,12 +29,12 @@ export default function GeneralDashboard() {
     const params =
       url === 'report/stock'
         ? {
-            id: url,
-            url,
-            name,
-            refetch: true,
-            data: { value: 'out_of_stock', label: 'Out of stock' },
-          }
+          id: url,
+          url,
+          name,
+          refetch: true,
+          data: { value: 'out_of_stock', label: 'Out of stock' },
+        }
         : { id: url, url, name, refetch: true };
     dispatch(setMenu(params));
     navigate(`/${url}`);

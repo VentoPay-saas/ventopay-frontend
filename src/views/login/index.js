@@ -83,8 +83,9 @@ const Login = () => {
     authService
       .login(body)
       .then((res) => {
-        console.log("🚀 ~ .then ~ res:", res)
         const user = {
+          firstName: res.data.firstname,
+          lastName: res.data.lastname,
           role: res.data.role,
           urls: data[res.data.role],
           img: res.data.img,
