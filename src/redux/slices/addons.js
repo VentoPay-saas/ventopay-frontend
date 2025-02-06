@@ -42,10 +42,10 @@ const addonsSlice = createSlice({
     builder.addCase(fetchAddons.fulfilled, (state, action) => {
       const { payload } = action;
       state.loading = false;
-      state.addonsList = payload.data;
+      state.addonsList = payload.data.data;
       state.meta = payload.meta;
-      state.params.page = payload.meta.current_page;
-      state.params.perPage = payload.meta.per_page;
+      state.params.page = payload.data.meta.current_page;
+      state.params.perPage = payload.data.meta.per_page;
       state.error = '';
     });
     builder.addCase(fetchAddons.rejected, (state, action) => {

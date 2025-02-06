@@ -36,6 +36,7 @@ import DownloadModal from './downloadModal';
 import CustomModal from '../../../components/modal';
 import TransactionStatusModal from './transactionStatusModal';
 import moment from 'moment';
+import { handleSearch } from 'redux/slices/orders';
 const { RangePicker } = DatePicker;
 
 export default function SellerOrdersBoard() {
@@ -95,16 +96,16 @@ export default function SellerOrdersBoard() {
   };
 
   useDidUpdate(() => {
-    // const paramsData = {
-    //   search: data?.search,
-    //   sort: data?.sort,
-    //   column: data?.column,
-    //   perPage: data?.perPage,
-    //   page: data?.page,
-    //   user_id: data?.userId,
-    //   status: data?.status,
-    // };
-    // dispatch(handleSearch(paramsData));
+    const paramsData = {
+      search: data?.search,
+      sort: data?.sort,
+      column: data?.column,
+      perPage: data?.perPage,
+      page: data?.page,
+      user_id: data?.userId,
+      status: data?.status,
+    };
+    dispatch(handleSearch(paramsData));
     dispatch(clearItems());
     fetchOrderAllItem();
   }, [data]);

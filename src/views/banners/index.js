@@ -44,9 +44,9 @@ const Banners = () => {
 
   const [columns, setColumns] = useState([
     {
-      title: t('id'),
-      dataIndex: 'id',
-      key: 'id',
+      title: t('_id'),
+      dataIndex: '_id',
+      key: '_id',
       is_show: true,
     },
     {
@@ -55,9 +55,10 @@ const Banners = () => {
       key: 'img',
       is_show: true,
       render: (img, row) => {
+        console.log("🚀 ~ Banners ~ img:", row)
         return (
           <Image
-            src={!row.deleted_at ? IMG_URL + img : 'https://fakeimg.pl/640x360'}
+            src={!row.deleted_at ? row?.images[0] : 'https://fakeimg.pl/640x360'}
             alt='img_gallery'
             width={100}
             className='rounded'
@@ -72,7 +73,7 @@ const Banners = () => {
       dataIndex: 'title',
       key: 'title',
       is_show: true,
-      render: (_, row) => row?.translation?.title,
+      render: (_, row) => row?.title,
     },
     {
       title: t('active'),
@@ -83,10 +84,10 @@ const Banners = () => {
         return (
           <Switch
             disabled={row.deleted_at}
-            key={row.id + active}
+            key={row._id + active}
             onChange={() => {
               setIsModalVisible(true);
-              setActiveId(row.id);
+              setActiveId(row._id);
               setType(true);
             }}
             checked={active}
@@ -124,7 +125,7 @@ const Banners = () => {
             icon={<DeleteOutlined />}
             onClick={() => {
               setIsModalVisible(true);
-              setId([row.id]);
+              setId([row._id]);
               setType(false);
             }}
           />
@@ -147,12 +148,12 @@ const Banners = () => {
   const goToEdit = (row) => {
     dispatch(
       addMenu({
-        url: `banner/${row.id}`,
+        url: `banner/${row._id}`,
         id: 'banner_edit',
         name: t('edit.banner'),
       }),
     );
-    navigate(`/banner/${row.id}`);
+    navigate(`/banner/${row._id}`);
   };
 
   const goToClone = (row) => {

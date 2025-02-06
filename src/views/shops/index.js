@@ -88,23 +88,24 @@ const Shops = () => {
       is_show: true,
       key: 'title',
     },
-    {
-      title: t('translations'),
-      dataIndex: 'locales',
-      is_show: true,
-      key: 'locales',
-      render: (_, row) => {
-        return (
-          <Space>
-            {row.locales?.map((item, index) => (
-              <Tag className='text-uppercase' color={[colors[index]]}>
-                {item}
-              </Tag>
-            ))}
-          </Space>
-        );
-      },
-    },
+
+    // {
+    //   title: t('translations'),
+    //   dataIndex: 'locales',
+    //   is_show: true,
+    //   key: 'locales',
+    //   render: (_, row) => {
+    //     return (
+    //       <Space>
+    //         {row.locales?.map((item, index) => (
+    //           <Tag className='text-uppercase' color={[colors[index]]}>
+    //             {item}
+    //           </Tag>
+    //         ))}
+    //       </Space>
+    //     );
+    //   },
+    // },
     {
       title: t('logo'),
       dataIndex: 'logo_img',
@@ -119,8 +120,8 @@ const Shops = () => {
               row.deleted_at
                 ? 'https://via.placeholder.com/150'
                 : img
-                ? img
-                : 'https://via.placeholder.com/150'
+                  ? img
+                  : 'https://via.placeholder.com/150'
             }
             effect='blur'
             width={50}
@@ -144,8 +145,8 @@ const Shops = () => {
               row.deleted_at
                 ? 'https://via.placeholder.com/150'
                 : img
-                ? img
-                : 'https://via.placeholder.com/150'
+                  ? img
+                  : 'https://via.placeholder.com/150'
             }
             effect='blur'
             width={50}
@@ -259,6 +260,7 @@ const Shops = () => {
     },
   ]);
 
+
   const data = activeMenu?.data;
   const paramsData = {
     search: data?.search,
@@ -268,8 +270,8 @@ const Shops = () => {
       immutable === 'deleted_at'
         ? undefined
         : immutable === 'all'
-        ? undefined
-        : immutable,
+          ? undefined
+          : immutable,
     deleted_at: immutable === 'deleted_at' ? immutable : undefined,
     page: data?.page,
     perPage: data?.perPage,
@@ -496,8 +498,8 @@ const Shops = () => {
           verify
             ? t('set.verify.product')
             : text
-            ? t('delete')
-            : t('all.delete')
+              ? t('delete')
+              : t('all.delete')
         }
         loading={loadingBtn}
         setText={setId}

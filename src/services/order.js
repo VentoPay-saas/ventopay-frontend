@@ -2,14 +2,12 @@ import request from './request';
 import requestWithoutTimeout from './requestWithoutTimeout';
 
 const orderService = {
-  getAll: (params) =>
-    request.get('dashboard/admin/orders/paginate', { params }),
-  getById: (id, params) =>
-    request.get(`dashboard/admin/orders/${id}`, { params }),
+  getAll: (params) => request.get('orders/orders', { params }),
+  getById: (id, params) => request.get(`orders/orders/${id}`, { params }),
   export: (params) =>
     requestWithoutTimeout.get(`dashboard/admin/order/export`, { params }),
-  create: (data) => request.post('dashboard/admin/orders', data, {}),
-  update: (id, data) => request.put(`dashboard/admin/orders/${id}`, data),
+  create: (data) => request.post('orders/orders', data, {}),
+  update: (id, data) => request.put(`orders/${id}`, data),
   calculate: (params) =>
     request.get(`dashboard/admin/order/products/calculate${params}`),
   updateStatus: (id, params) =>

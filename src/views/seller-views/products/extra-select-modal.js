@@ -12,7 +12,7 @@ const ExtraSelectModal = ({ open, onClose, selectedExtras, onSelect }) => {
   const [loading, setLoading] = useState(false);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [search, setSearch] = useState('');
-  const [meta, setMeta] =useState();
+  const [meta, setMeta] = useState();
   const debouncedSearch = useDebounce(search, 500);
   const getExtraGroup = (query, page = 1) => {
     setLoading(true);
@@ -87,7 +87,7 @@ const ExtraSelectModal = ({ open, onClose, selectedExtras, onSelect }) => {
               {item.label}
             </List.Item>
           )}
-         
+
         />
         <Pagination onChange={onChange} current={meta?.current_page} total={meta?.total} />
       </Modal>

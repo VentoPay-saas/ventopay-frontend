@@ -7,23 +7,23 @@ export function sortExtras(object, initialAddons) {
     up = '';
     for (var k = 0; k < object['stocks'][i]['extras']?.length; k++) {
       var extra = Object.assign({}, object['stocks'][i]['extras'][k]);
-      var index = extras.findIndex((item) => item['id'] == extra['id']);
+      var index = extras.findIndex((item) => item['_id'] == extra['_id']);
       if (index == -1) {
         extra['level'] = k;
         extra['up'] = [up];
         extras.push(extra);
-        up += extra['id'].toString();
+        up += extra['_id'].toString();
       } else {
         extras[index]['up'].push(up);
-        up += extra['id'].toString();
+        up += extra['_id'].toString();
       }
     }
     var mdata = {
-      id: object['stocks'][i]['id'],
+      id: object['stocks'][i]['_id'],
       extras: up,
       price: object['stocks'][i]['price'],
       quantity: object['stocks'][i]['quantity'],
-      countable_id: object['stocks'][i]['countable_id'],
+      countable_id: object['stocks'][i]['_id'],
       discount: object['stocks'][i]['discount'],
       tax: object['stocks'][i]['tax'],
       total_price: object['stocks'][i]['total_price'],

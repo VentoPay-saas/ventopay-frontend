@@ -81,8 +81,8 @@ const ProductCategories = () => {
 
   const [columns, setColumns] = useState([
     {
-      title: t('id'),
-      dataIndex: 'id',
+      title: t('_id'),
+      dataIndex: '_id',
       is_show: true,
       sorter: (a, b) => a.id - b.id,
     },
@@ -94,7 +94,7 @@ const ProductCategories = () => {
         return (
           <Image
             width={100}
-            src={!row.deleted_at ? IMG_URL + img : 'https://fakeimg.pl/640x360'}
+            src={!row.deleted_at ? row?.images[0].url : 'https://fakeimg.pl/640x360'}
             placeholder
             style={{ borderRadius: 4 }}
           />
@@ -106,34 +106,37 @@ const ProductCategories = () => {
       dataIndex: 'name',
       is_show: true,
     },
-    {
-      title: t('translations'),
-      dataIndex: 'locales',
-      is_show: true,
-      render: (_, row) => {
-        return (
-          <Space>
-            {row.locales?.map((item, index) => (
-              <Tag className='text-uppercase' color={[colors[index]]}>
-                {item}
-              </Tag>
-            ))}
-          </Space>
-        );
-      },
-    },
+    // {
+    //   title: t('translations'),
+    //   dataIndex: 'locales',
+    //   is_show: true,
+    //   render: (_, row) => {
+    //     return (
+    //       <Space>
+    //         {row.locales?.map((item, index) => (
+    //           <Tag className='text-uppercase' color={[colors[index]]}>
+    //             {item}
+    //           </Tag>
+    //         ))}
+    //       </Space>
+    //     );
+    //   },
+    // },
     {
       title: t('shop'),
       dataIndex: 'shop_id',
       is_show: true,
       render: (_, row) => {
-        return row.shop?.translation?.title;
+        return row.shop_id?.title;
       },
     },
     {
       title: t('category'),
-      dataIndex: 'category_name',
+      dataIndex: 'category_id',
       is_show: true,
+      render: (_, row) => {
+        return row.category_id?.title;
+      },
     },
     {
       title: t('active'),
@@ -230,8 +233,8 @@ const ProductCategories = () => {
       immutable === 'deleted_at'
         ? undefined
         : immutable === 'all'
-        ? undefined
-        : immutable,
+          ? undefined
+          : immutable,
     deleted_at: immutable === 'deleted_at' ? immutable : null,
     column: data?.column,
     perPage: data?.perPage,
@@ -568,8 +571,8 @@ const ProductCategories = () => {
           active
             ? t('set.active.product')
             : text
-            ? t('delete')
-            : t('all.delete')
+              ? t('delete')
+              : t('all.delete')
         }
         loading={loadingBtn}
         setText={setId}

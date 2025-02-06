@@ -58,7 +58,7 @@ const ShopFormData = ({
     return userService.search(params).then((res) =>
       res.data.map((item) => ({
         label: item.firstname + ' ' + (item.lastname || ''),
-        value: item.id,
+        value: item._id,
       })),
     );
   }
@@ -68,8 +68,8 @@ const ShopFormData = ({
     const params = { search };
     return shopTagService.getAll(params).then(({ data }) =>
       data.map((item) => ({
-        label: item.translation?.title || 'no name',
-        value: item.id,
+        label: item?.title || 'no name',
+        value: item._id,
       })),
     );
   }
@@ -181,7 +181,9 @@ const ShopFormData = ({
         <Card title={t('general')}>
           <Row gutter={12}>
             <Col span={12}>
-              {languages.map((item, idx) => (
+              {/* {languages.map((item, idx) => (
+                console.log("item:", item),
+
                 <Form.Item
                   key={'title' + idx}
                   label={t('title')}
@@ -206,7 +208,17 @@ const ShopFormData = ({
                 >
                   <Input />
                 </Form.Item>
-              ))}
+              ))} */}
+
+              <Form.Item
+                key={'title'}
+                label={t('title')}
+                name={`title`}
+                rules={[{ required: true, message: t('required') }]}
+
+              >
+                <Input />
+              </Form.Item>
             </Col>
             <Col span={12}>
               <Form.Item
@@ -267,7 +279,7 @@ const ShopFormData = ({
               </Form.Item>
             </Col>
             <Col span={12}>
-              {languages.map((item, idx) => (
+              {/* {languages.map((item, idx) => (
                 <Form.Item
                   key={'desc' + idx}
                   label={t('description')}
@@ -292,7 +304,15 @@ const ShopFormData = ({
                 >
                   <TextArea maxLength={250} rows={4} />
                 </Form.Item>
-              ))}
+              ))} */}
+
+              <Form.Item
+                key={'desc'}
+                label={t('description')}
+                name={`description`}
+              >
+                <TextArea maxLength={250} rows={4} />
+              </Form.Item>
             </Col>
             {!!sellerDocuments?.length && (
               <Col span={24}>

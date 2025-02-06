@@ -35,22 +35,23 @@ export default function ShopTagForm({ form, handleSubmit }) {
     >
       <Row gutter={12}>
         <Col span={12}>
-          {languages.map((item) => (
-            <Form.Item
-              key={'title' + item.locale}
-              label={t('title')}
-              name={`title[${item.locale}]`}
-              rules={[
-                {
-                  required: item.locale === defaultLang,
-                  message: t('required'),
-                },
-              ]}
-              hidden={item.locale !== defaultLang}
-            >
-              <Input />
-            </Form.Item>
-          ))}
+          {/* {languages.map((item) => ( */}
+          <Form.Item
+            // key={'title' + item.locale}
+            label={t('title')}
+            // name={`title[${item.locale}]`}
+            name="title"
+            rules={[
+              {
+                // required: item.locale === defaultLang,
+                message: t('required'),
+              },
+            ]}
+          // hidden={item.locale !== defaultLang}
+          >
+            <Input />
+          </Form.Item>
+          {/* ))} */}
         </Col>
         <Col span={12}>
           <Form.Item

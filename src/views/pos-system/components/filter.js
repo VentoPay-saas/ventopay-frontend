@@ -37,9 +37,9 @@ const Filter = () => {
     return shopService.search(params).then((res) => {
       setLinks(res.links);
       return res.data.map((item) => ({
-        label: item?.translation?.title || t('N/A'),
-        value: item?.id,
-        key: item?.id,
+        label: item?.title || t('N/A'),
+        value: item?._id,
+        key: item?._id,
       }));
     });
   }

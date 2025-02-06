@@ -43,7 +43,7 @@ const MediaUpload = ({
           >
             <Image
               preview={false}
-              src={getImage(item?.name)}
+              src={getImage(item?.url)}
               className='images'
               alt={'images'}
             />

@@ -71,12 +71,12 @@ const Brands = () => {
   const goToEdit = (row) => {
     dispatch(
       addMenu({
-        url: `brand/${row.id}`,
+        url: `brand/${row._id}`,
         id: 'brand_edit',
         name: t('edit.brand'),
       })
     );
-    navigate(`/brand/${row.id}`, { state: 'edit' });
+    navigate(`/brand/${row._id}`, { state: 'edit' });
   };
 
   const goToAddBrand = () => {
@@ -105,18 +105,18 @@ const Brands = () => {
     dispatch(
       addMenu({
         id: 'edit-shop',
-        url: `shop/${row.uuid}`,
+        url: `shop/${row._id}`,
         name: t('edit.shop'),
       })
     );
-    navigate(`/shop/${row.uuid}`, { state: 'edit' });
+    navigate(`/shop/${row._id}`, { state: 'edit' });
   };
 
   const [columns, setColumns] = useState([
     {
       title: t('id'),
-      dataIndex: 'id',
-      key: 'id',
+      dataIndex: '_id',
+      key: '_id',
       is_show: true,
       sorter: true,
     },
@@ -134,7 +134,7 @@ const Brands = () => {
       render: (shop) =>
         shop ? (
           <span onClick={() => goToShop(shop)} className='text-hover'>
-            {shop?.translation?.title}
+            {shop?.title}
           </span>
         ) : (
           t('admin')
@@ -148,14 +148,14 @@ const Brands = () => {
       render: (img, row) => {
         return (
           <Image
-            src={!row.deleted_at ? IMG_URL + img : 'https://fakeimg.pl/640x360'}
+            src={!row.deleted_at ? row?.images[0].url : 'https://fakeimg.pl/640x360'}
             alt='img_gallery'
             width={100}
             height='auto'
             className='rounded'
             preview
             placeholder
-            key={img + row.id}
+            key={row.images[0].url + row._id}
           />
         );
       },
@@ -188,14 +188,14 @@ const Brands = () => {
             />
             <Button
               icon={<CopyOutlined />}
-              onClick={() => goToClone(row.id)}
+              onClick={() => goToClone(row._id)}
               disabled={row.deleted_at}
             />
             <DeleteButton
               disabled={row.deleted_at}
               icon={<DeleteOutlined />}
               onClick={() => {
-                setId([row.id]);
+                setId([row._id]);
                 setIsModalVisible(true);
                 setText(true);
               }}

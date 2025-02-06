@@ -32,6 +32,7 @@ const CategoryAdd = () => {
     const body = {
       ...values,
       type: 'main',
+      shop_id: values.shop?.value,
       active: values.active ? 1 : 0,
       keywords: values.keywords.join(','),
       parent_id: state?.parentId || values.parent_id?.value,

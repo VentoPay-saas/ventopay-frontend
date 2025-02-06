@@ -46,10 +46,10 @@ export default function LanguageAdd() {
       .getById(id)
       .then((res) => {
         let language = res.data;
-        setImage([createImage(language.img)]);
+        setImage([createImage(language.images[0])]);
         form.setFieldsValue({
           ...language,
-          image: [createImage(language.img)],
+          image: [createImage(language.images[0])],
         });
       })
       .finally(() => {
@@ -63,7 +63,7 @@ export default function LanguageAdd() {
     const body = {
       title: values?.title,
       locale: values?.locale,
-      images: image.length ? [image[0]?.name] : undefined,
+      images: image.length ? [image[0]?.url] : undefined,
       active: Number(values?.active),
       backward: values?.backward,
       default: values?.default,

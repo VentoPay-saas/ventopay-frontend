@@ -39,45 +39,127 @@ const ProductStock = ({ prev, next, isRequest }) => {
   );
   const randomNumbersLength = 6;
 
+  // const onFinish = (values) => {
+  //   const { stocks } = values;
+
+  //   const delete_ids = stockIds.filter(
+  //     (stockId, index) =>
+  //       !!stocks[index]?.stock_id &&
+  //       !stocks.some((stock) => stock?.stock_id === stockId),
+  //   );
+  //   let extras;
+  //   const isProductWithExtras = !!activeMenu.data?.extras?.length;
+
+  //   if (isProductWithExtras) {
+  //     extras = stocks.map((item, index) => ({
+  //       price: item.price,
+  //       quantity: item.quantity,
+  //       sku: item.sku,
+  //       ids: isRequest
+  //         ? activeMenu?.data?.extras?.map((_, idx) => item[`extras[${idx}]`])
+  //         : activeMenu?.data?.extras?.map(
+  //           (_, idx) => item[`extras[${idx}]`].value,
+  //         ),
+  //       addons: item.addons
+  //         ? isRequest
+  //           ? item.addons?.map((i) => i)
+  //           : item.addons?.map((i) => i.value)
+  //         : [],
+  //       stock_id: item.stock_id,
+  //     }));
+  //     console.log("extraasss:", extras);
+
+  //   } else {
+  //     extras = [
+  //       {
+  //         price: stocks[0].price,
+  //         quantity: stocks[0].quantity,
+  //         addons: stocks[0].addons
+  //           ? isRequest
+  //             ? stocks[0].addons.map((i) => i)
+  //             : stocks[0].addons.map((i) => i.value)
+  //           : [],
+  //         stock_id: stocks[0].stock_id,
+  //         sku: stocks[0].sku,
+  //         ids: [],
+  //       },
+  //     ];
+  //   }
+
+  //   if (isRequest) {
+  //     dispatch(
+  //       setMenuData({
+  //         activeMenu,
+  //         data: { ...activeMenu.data, stocks: extras, delete_ids },
+  //       }),
+  //     );
+  //     next();
+  //     return;
+  //   }
+
+  //   setLoadingBtn(true);
+  //   productService
+  //     .stocks(uuid, { extras, delete_ids })
+  //     .then(() => {
+  //       dispatch(
+  //         setMenuData({
+  //           activeMenu,
+  //           data: { ...activeMenu.data, stocks: extras, delete_ids },
+  //         }),
+  //       );
+  //       dispatch(setRefetch(activeMenu));
+  //       next();
+  //     })
+  //     .finally(() => setLoadingBtn(false));
+  // };
+
   const onFinish = (values) => {
     const { stocks } = values;
+
+    if (!Array.isArray(stocks) || stocks.length === 0) {
+      console.error('Stocks array is missing or empty');
+      return;
+    }
+
     const delete_ids = stockIds.filter(
       (stockId, index) =>
         !!stocks[index]?.stock_id &&
         !stocks.some((stock) => stock?.stock_id === stockId),
     );
+
     let extras;
     const isProductWithExtras = !!activeMenu.data?.extras?.length;
 
     if (isProductWithExtras) {
-      extras = stocks.map((item, index) => ({
+      extras = stocks.map((item) => ({
         price: item.price,
         quantity: item.quantity,
         sku: item.sku,
         ids: isRequest
-          ? activeMenu.data?.extras.map((_, idx) => item[`extras[${idx}]`])
-          : activeMenu.data?.extras.map(
-              (_, idx) => item[`extras[${idx}]`].value,
-            ),
-        addons: item.addons
+          ? activeMenu?.data?.extras?.map((_, idx) => item[`extras[${idx}]`])
+          : activeMenu?.data?.extras?.map(
+            (_, idx) => item[`extras[${idx}]`]?.value || null,
+          ),
+        addons: Array.isArray(item.addons)
           ? isRequest
-            ? item.addons?.map((i) => i)
-            : item.addons?.map((i) => i.value)
+            ? item.addons.map((i) => i)
+            : item.addons.map((i) => i.value || null)
           : [],
         stock_id: item.stock_id,
       }));
     } else {
+      const stock = stocks[0] || {};
       extras = [
         {
-          price: stocks[0].price,
-          quantity: stocks[0].quantity,
-          addons: stocks[0].addons
+          price: stock.price || 0,
+          quantity: stock.quantity || 0,
+          addons: Array.isArray(stock.addons)
             ? isRequest
-              ? stocks[0].addons.map((i) => i)
-              : stocks[0].addons.map((i) => i.value)
+              ? stock.addons.map((i) => i)
+              : stock.addons.map((i) => i.value || null)
             : [],
-          stock_id: stocks[0].stock_id,
-          sku: stocks[0].sku,
+          stock_id: stock.stock_id || null,
+          sku: stock.sku || '',
           ids: [],
         },
       ];
@@ -110,6 +192,7 @@ const ProductStock = ({ prev, next, isRequest }) => {
       .finally(() => setLoadingBtn(false));
   };
 
+
   function fetchProduct(uuid) {
     setLoading(true);
     productService
@@ -137,8 +220,8 @@ const ProductStock = ({ prev, next, isRequest }) => {
               selectedStock?.addons?.forEach((item) => {
                 if (item.product) {
                   selectedAddons.push({
-                    label: item?.product?.translation?.title || item?.label,
-                    value: item?.product?.id || item?.value,
+                    label: item?.product?.title || item?.label,
+                    value: item?.product?._id || item?.value,
                   });
                 }
               });
@@ -234,9 +317,9 @@ const ProductStock = ({ prev, next, isRequest }) => {
     };
     const addons =
       (await productService.getAll(params).then((res) =>
-        res.data.map((item) => ({
-          label: item?.translation?.title,
-          value: item?.id,
+        res.data.data.map((item) => ({
+          label: item?.title,
+          value: item?._id,
         })),
       )) || [];
 
@@ -265,8 +348,8 @@ const ProductStock = ({ prev, next, isRequest }) => {
             selectedStock?.addons?.forEach((item) => {
               if (item.product) {
                 selectedAddons.push({
-                  label: item?.product?.translation?.title || item?.label,
-                  value: item?.product?.id || item?.value,
+                  label: item?.product?.title || item?.label,
+                  value: item?.product?._id || item?.value,
                 });
               }
             });
@@ -413,11 +496,10 @@ const ProductStock = ({ prev, next, isRequest }) => {
 
   return (
     <Card
-      title={`${t('product.name')}: ${
-        activeMenu.data[`title[${defaultLang}]`]
-          ? `"${activeMenu.data[`title[${defaultLang}]`]}"`
-          : ''
-      }`}
+      title={`${t('product.name')}: ${activeMenu.data[`title[${defaultLang}]`]
+        ? `"${activeMenu.data[`title[${defaultLang}]`]}"`
+        : ''
+        }`}
       loading={!!loading}
     >
       <Form layout='vertical' form={form} onFinish={onFinish}>
@@ -489,15 +571,16 @@ const ProductStock = ({ prev, next, isRequest }) => {
             return (
               <div>
                 {fields.map((field, index) => {
+
                   return (
                     <Row
                       key={field.key}
                       gutter={12}
                       align='middle'
                       style={{ flexWrap: 'nowrap', overflowX: 'auto' }}
-                      hidden={!activeMenu.data?.extras?.length && field.key}
+                      hidden={!activeMenu.data?.extras?.length}
                     >
-                      {activeMenu.data?.extras?.map((item, idx) => (
+                      {/* {activeMenu.data?.extras?.map((item, idx) => (
                         <Col key={'extra' + item.value}>
                           <Form.Item
                             label={item?.label}
@@ -511,7 +594,7 @@ const ProductStock = ({ prev, next, isRequest }) => {
                             />
                           </Form.Item>
                         </Col>
-                      ))}
+                      ))} */}
                       <Col>
                         <Form.Item
                           label={t('addons')}
@@ -602,9 +685,8 @@ const ProductStock = ({ prev, next, isRequest }) => {
                               tax === 0 ? price : (price * tax) / 100 + price;
                             return (
                               <Form.Item
-                                label={`${t('total.price')} (${
-                                  defaultCurrency?.symbol
-                                })`}
+                                label={`${t('total.price')} (${defaultCurrency?.symbol
+                                  })`}
                               >
                                 <InputNumber
                                   min={1}

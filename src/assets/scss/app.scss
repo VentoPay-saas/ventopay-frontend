@@ -49,6 +49,14 @@ body {
   }
 }
 
+.VIpgJd-ZVi9od-l4eHX-hSRGPd {
+  display: none !important;
+}
+
+.goog-te-combo {
+  width: 100% !important;
+}
+
 img,
 svg {
   vertical-align: baseline !important;
@@ -75,6 +83,7 @@ svg {
   border: 1px solid var(--input-border) !important;
   border-bottom-left-radius: 12px !important;
   border-bottom-right-radius: 12px !important;
+
   &:hover {
     border: 1px solid var(--box-shadow);
   }
@@ -84,6 +93,7 @@ svg {
   border: 1px solid var(--input-border) !important;
   border-top-left-radius: 12px !important;
   border-top-right-radius: 12px !important;
+
   &:hover {
     border: 1px solid var(--box-shadow);
   }
@@ -116,6 +126,7 @@ svg {
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(15px);
     border: none;
+
     .ant-result-icon {
       .anticon {
         svg {
@@ -123,21 +134,26 @@ svg {
         }
       }
     }
+
     .ant-result-title {
       color: var(--bg-color);
       font-size: 28px;
     }
+
     .ant-result-subtitle {
       color: var(--bg-color);
     }
+
     .ant-card-body {
       height: auto;
     }
   }
 }
+
 .story_img {
   .ant-upload-list-item-actions {
     display: block;
+
     .anticon-eye {
       svg {
         font-size: 16px;
@@ -150,12 +166,14 @@ svg {
   display: flex;
   justify-content: center;
   align-items: center;
+
   .anticon-eye {
     svg {
       font-size: 20px;
     }
   }
 }
+
 .extra-color-wrapper-contain {
   width: 20px;
   height: 20px;
@@ -207,6 +225,7 @@ svg {
 
   .antd-toast {
     color: var(--light-text);
+
     .Toastify__toast-theme--light {
       color: var(--light-text);
       background: var(--dark-blue);
@@ -215,6 +234,7 @@ svg {
     .Toastify__close-button--light {
       color: var(--light-text);
     }
+
     .Toastify__toast-body {
       height: 60px !important;
       color: var(--light-text);
@@ -224,11 +244,11 @@ svg {
     }
   }
 
-  .ck.ck-editor__main > .ck-editor__editable {
+  .ck.ck-editor__main>.ck-editor__editable {
     background: var(--dark-background);
   }
 
-  .ck.ck-editor__main > .ck-editor__editable:not(.ck-focused) {
+  .ck.ck-editor__main>.ck-editor__editable:not(.ck-focused) {
     border-color: var(--dark-grey);
   }
 
@@ -307,12 +327,13 @@ svg {
   position: relative;
 }
 
-.ant-tabs-left > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab,
-.ant-tabs-left > div > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab,
-.ant-tabs-right > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab,
-.ant-tabs-right > div > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab {
+.ant-tabs-left>.ant-tabs-nav .ant-tabs-tab+.ant-tabs-tab,
+.ant-tabs-left>div>.ant-tabs-nav .ant-tabs-tab+.ant-tabs-tab,
+.ant-tabs-right>.ant-tabs-nav .ant-tabs-tab+.ant-tabs-tab,
+.ant-tabs-right>div>.ant-tabs-nav .ant-tabs-tab+.ant-tabs-tab {
   margin: 10px 0 !important;
 }
+
 .alert {
   padding: 15px 16px;
   background: #cfe2ff;
@@ -320,9 +341,11 @@ svg {
   border-radius: 8px;
   color: #000000;
 }
+
 .alert-header {
   display: flex;
   align-items: center;
+
   p {
     color: #000000;
     font-weight: 600;
@@ -331,11 +354,13 @@ svg {
     margin: 0;
   }
 }
+
 .alert-icon {
   font-size: 30px;
   margin-right: 10px;
   margin-bottom: 10px;
 }
+
 .ant-form-item-control-input-content {
   .ant-input-suffix {
     .anticon-eye-invisible {
@@ -343,11 +368,13 @@ svg {
         fill: var(--bg-color);
       }
     }
+
     .anticon-eye {
       svg {
         fill: var(--bg-color);
       }
     }
+
     .ant-form-item-feedback-icon {
       margin-left: 10px;
     }
@@ -361,11 +388,13 @@ svg {
         fill: #b4bed2;
       }
     }
+
     .anticon-eye {
       svg {
         fill: #b4bed2;
       }
     }
+
     .ant-form-item-feedback-icon {
       margin-left: 10px;
     }
@@ -417,6 +446,7 @@ svg {
 .borderRadius {
   border-radius: 8px;
 }
+
 .extras .ant-image-mask {
   border-radius: 8px;
 }
@@ -431,6 +461,7 @@ svg {
 
 .text-hover {
   transition: all 0.3s ease-in-out;
+
   &:hover {
     transition: all 0.3s ease-in-out;
     cursor: pointer;
@@ -443,6 +474,7 @@ svg {
   border-bottom-left-radius: 12px !important;
   border-bottom-right-radius: 12px !important;
 }
+
 .textEditor .ck .ck-toolbar {
   border-top-left-radius: 12px !important;
   border-top-right-radius: 12px !important;
@@ -468,6 +500,7 @@ a.ck.ck-button.ck-on {
 .ant-upload {
   .ant-upload {
     padding: 2px;
+
     img {
       overflow: hidden;
       border-radius: 8px !important;
@@ -487,6 +520,7 @@ a.ck.ck-button.ck-on {
   overflow: hidden;
   white-space: nowrap;
 }
+
 .ant-form-item-control-input-content .rmdp-container {
   width: 100% !important;
 }
@@ -494,6 +528,7 @@ a.ck.ck-button.ck-on {
 .order-details {
   background: white !important;
 }
+
 [data-theme='dark'] .order-details {
   background: #455560 !important;
 }
@@ -505,6 +540,7 @@ a.ck.ck-button.ck-on {
   font-size: 14px;
   cursor: pointer;
 }
+
 .order-card-title {
   font-size: 16px;
   color: #1a3353;
@@ -581,6 +617,7 @@ a.ck.ck-button.ck-on {
   color: white !important;
   background: #3e79f7 !important;
 }
+
 .rdp-months .rdp-table .rdp-cell .rdp-button_reset:hover {
   color: white !important;
   background: #3e79f7 !important;
@@ -635,6 +672,7 @@ a.ck.ck-button.ck-on {
 .statistic-card {
   border: 1px solid #e6ebf1;
   font-size: 23px !important;
+
   .statistic-box {
     gap: 12px;
     display: flex;
@@ -649,6 +687,7 @@ a.ck.ck-button.ck-on {
 
 .modal_collapse {
   background: transparent !important;
+
   .order_card {
     border: 1px solid #e6ebf1;
   }
@@ -665,6 +704,7 @@ a.ck.ck-button.ck-on {
     border: 1px solid var(--border-color);
   }
 }
+
 [data-theme='dark'] .addon-menu {
   .ant-card {
     border: 1px solid var(--border-color-bg-dark) !important;
@@ -680,6 +720,7 @@ a.ck.ck-button.ck-on {
   background: none !important;
   border: none !important;
   color: #1a3353 !important;
+
   &:hover {
     background: none !important;
     border: none !important;
@@ -691,6 +732,7 @@ a.ck.ck-button.ck-on {
   background: none !important;
   border: none !important;
   color: #b4bed2 !important;
+
   &:hover {
     background: none !important;
     border: none !important;
@@ -786,6 +828,7 @@ a.ck.ck-button.ck-on {
 
 .dnd-column {
   min-width: 250px;
+
   .h-screen {
     padding: 0 8px;
     padding-top: 8px;
@@ -828,6 +871,7 @@ a.ck.ck-button.ck-on {
   .ant-input-suffix {
     opacity: 0;
   }
+
   &:hover {
     .ant-input-suffix {
       opacity: 0.5;

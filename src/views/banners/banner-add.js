@@ -26,13 +26,18 @@ const BannerAdd = () => {
     };
     const body = {
       shops: values.shops?.map((i) => i.value),
-      images: image.map((image) => image.name),
+      images: image.map((image) => image.url),
       url: values.url,
       clickable: values.clickable,
-      title: getTranslationFields(languages, values, 'title'),
-      description: getTranslationFields(languages, values, 'description'),
-      button_text: getTranslationFields(languages, values, 'button_text'),
+      title: values.title,
+      description: values.description,
+      button_text: values.button_text
+      // title: getTranslationFields(languages, values, 'title'),
+      // description: getTranslationFields(languages, values, 'description'),
+      // button_text: getTranslationFields(languages, values, 'button_text'),
     };
+    console.log(body);
+
 
     return bannerService.create(body).then(() => {
       toast.success(t('successfully.created'));

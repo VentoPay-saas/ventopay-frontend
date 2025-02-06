@@ -29,26 +29,27 @@ export default function Units() {
     dispatch(
       addMenu({
         id: 'unit-edit',
-        url: `unit/${row.id}`,
+        url: `unit/${row._id}`,
         name: t('edit.unit'),
       })
     );
-    navigate(`/unit/${row.id}`);
+    navigate(`/unit/${row._id}`);
   };
 
   const [columns, setColumns] = useState([
     {
       title: t('id'),
-      dataIndex: 'id',
-      key: 'id',
+      dataIndex: '_id',
+      key: '_id',
       sorter: true,
       is_show: true,
     },
     {
       title: t('name'),
-      dataIndex: 'translation',
+      dataIndex: 'title',
       is_show: true,
-      render: (translation) => translation?.title,
+      render: (translation) => translation
+      ,
     },
     {
       title: t('position'),
@@ -64,7 +65,7 @@ export default function Units() {
           <Switch
             onChange={() => {
               setIsModalVisible(true);
-              setUUID([row.id]);
+              setUUID([row._id]);
               setActive(true);
             }}
             checked={active}
@@ -86,7 +87,7 @@ export default function Units() {
             />
             <DeleteButton
               onClick={() => {
-                setUUID([row.id]);
+                setUUID([row._id]);
                 setIsModalVisible(true);
                 setText(true);
                 setActive(false);

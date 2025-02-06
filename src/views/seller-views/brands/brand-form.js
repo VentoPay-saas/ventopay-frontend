@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 export default function BrandForm({ form, handleSubmit }) {
   const { t } = useTranslation();
   const { activeMenu } = useSelector((state) => state.menu, shallowEqual);
+  console.log("🚀 ~ BrandForm ~ activeMenu:", activeMenu)
 
   // states
   const [image, setImage] = useState(

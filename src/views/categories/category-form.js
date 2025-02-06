@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { shallowEqual, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import categoryService from '../../services/category';
+import shopService from 'services/restaurant';
 
 export default function CategoryForm({ form, handleSubmit, error }) {
   const { t } = useTranslation();
@@ -17,6 +18,15 @@ export default function CategoryForm({ form, handleSubmit, error }) {
   );
   const { state } = useLocation();
 
+  async function fetchUserShopList(search) {
+    const params = { search, active: 1 };
+    return shopService.get(params).then((res) =>
+      res.data.data.map((item) => ({
+        label: item ? item.title : 'no name',
+        value: item._id,
+      })),
+    );
+  }
   //states
   const [loadingBtn, setLoadingBtn] = useState(false);
   const [image, setImage] = useState(
@@ -33,9 +43,9 @@ export default function CategoryForm({ form, handleSubmit, error }) {
     };
     return categoryService.selectPaginate(params).then((res) =>
       res.data.map((item) => ({
-        label: item.translation?.title,
-        value: item.id,
-        key: item.id,
+        label: item?.title,
+        value: item._id,
+        key: item._id,
       }))
     );
   }
@@ -59,7 +69,7 @@ export default function CategoryForm({ form, handleSubmit, error }) {
     >
       <Row gutter={12}>
         <Col span={12}>
-          {languages.map((item, index) => (
+          {/* {languages.map((item, index) => (
             <Form.Item
               key={item.title + index}
               label={t('name')}
@@ -90,11 +100,24 @@ export default function CategoryForm({ form, handleSubmit, error }) {
             >
               <Input placeholder={t('name')} />
             </Form.Item>
-          ))}
+          ))} */}
+          <Form.Item
+            key={"title"}
+            label={t('name')}
+            name={`title`}
+            rules={[
+              {
+                required: true,
+                message: "required"
+              },
+            ]}
+          >
+            <Input placeholder={t('name')} />
+          </Form.Item>
         </Col>
 
         <Col span={12}>
-          {languages.map((item, index) => (
+          {/* {languages.map((item, index) => (
             <Form.Item
               key={item.locale + index}
               label={t('description')}
@@ -117,7 +140,19 @@ export default function CategoryForm({ form, handleSubmit, error }) {
             >
               <TextArea maxLength={250} rows={4} />
             </Form.Item>
-          ))}
+          ))} */}
+          <Form.Item
+            key={"description"}
+            label={t('description')}
+            name={`description`}
+            rules={[
+              {
+                message: "required"
+              },
+            ]}
+          >
+            <TextArea maxLength={250} rows={4} />
+          </Form.Item>
         </Col>
 
         <Col span={12}>
@@ -139,12 +174,31 @@ export default function CategoryForm({ form, handleSubmit, error }) {
             <Form.Item
               label={t('parent.category')}
               name='parent_id'
-              // rules={[{ required: true, message: t('required') }]}
+            // rules={[{ required: true, message: t('required') }]}
             >
               <RefetchSearch refetch fetchOptions={fetchUserCategoryList} />
             </Form.Item>
           </Col>
         )}
+
+        <Col span={24}>
+          <Form.Item
+            label={t('shop/restaurant')}
+            name='shop'
+            rules={[{ required: true, message: t('required') }]}
+          >
+            <RefetchSearch
+              fetchOptions={fetchUserShopList}
+              onChange={() => {
+                form.setFieldsValue({
+                  category: undefined,
+                  kitchen: undefined,
+                });
+              }}
+            // disabled={action_type === 'edit'}
+            />
+          </Form.Item>
+        </Col>
 
         <Col span={4}>
           <Form.Item

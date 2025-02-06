@@ -45,10 +45,11 @@ const ProductFinish = ({ prev, isRequest }) => {
     productService
       .getById(uuid)
       .then((res) => {
+        console.log("🚀 ~ .then ~ res:", res)
         const data = {
           ...res.data,
           ...getLanguageFields(res.data),
-          properties: res.data.properties.map((item, index) => ({
+          properties: res?.data?.properties?.map((item, index) => ({
             id: index,
             [`key[${item.locale}]`]: item.key,
             [`value[${item.locale}]`]: item.value,
@@ -98,27 +99,29 @@ const ProductFinish = ({ prev, isRequest }) => {
 
   const changedInfo = activeMenu.data;
   const originalInfo = isRequest ? activeMenu.data.model : data;
+  console.log("🚀 ~ ProductFinish ~ data:", data)
+  console.log("🚀 ~ ProductFinish ~ originalInfo:", originalInfo)
 
- 
+
   return !loading ? (
     <Card>
       {isRequest && (
         <>
           <Descriptions bordered title={t('changed.info')}>
             <Descriptions.Item
-              label={`${t('title')} (${defaultLang})`}
+              label={`${t('title')}`}
               span={3}
             >
-              {changedInfo[`title[${defaultLang}]`]}
+              {changedInfo[`title`]}
             </Descriptions.Item>
             <Descriptions.Item
-              label={`${t('description')} (${defaultLang})`}
+              label={`${t('description')}`}
               span={3}
             >
-              {changedInfo[`description[${defaultLang}]`]}
+              {changedInfo[`description`]}
             </Descriptions.Item>
             <Descriptions.Item label={t('shop')} span={1.5}>
-              {changedInfo?.shop?.translation.title}
+              {changedInfo?.shop?.title}
             </Descriptions.Item>
             <Descriptions.Item label={t('category')} span={1.5}>
               {changedInfo?.category?.label}
@@ -152,6 +155,7 @@ const ProductFinish = ({ prev, isRequest }) => {
             if (!item) {
               return '';
             }
+
             return (
               <Descriptions key={'desc' + idx} bordered className='mt-4'>
                 <Descriptions.Item label={t('price')} span={2}>
@@ -179,32 +183,32 @@ const ProductFinish = ({ prev, isRequest }) => {
           span={3}
           column={3}
         >
-          {originalInfo.translation?.title || originalInfo[`title[${defaultLang}]`]}
+          {originalInfo?.title || originalInfo[`title`]}
         </Descriptions.Item>
         <Descriptions.Item
           label={`${t('description')} (${defaultLang})`}
           span={3}
           column={3}
         >
-          {originalInfo?.translation?.description || originalInfo[`description[${defaultLang}]`]}
+          {originalInfo?.description || originalInfo[`description`]}
         </Descriptions.Item>
         <Descriptions.Item label={t('shop')} span={1.5} column={1.5}>
-          {originalInfo.shop?.translation.title}
+          {originalInfo.shop_id?.title}
         </Descriptions.Item>
         <Descriptions.Item label={t('category')} span={1.5} column={1.5}>
-          {originalInfo.category?.translation.title}
+          {originalInfo.category_id?.title}
         </Descriptions.Item>
         <Descriptions.Item label={t('brand')} span={1.5} column={1.5}>
-          {originalInfo.brand?.title}
+          {originalInfo.brand_id?.title}
         </Descriptions.Item>
         <Descriptions.Item label={t('unit')} span={1.5} column={1.5}>
-          {originalInfo.unit?.translation.title}
+          {originalInfo.unit_id?.title}
         </Descriptions.Item>
         <Descriptions.Item label={t('images')} span={3} column={3}>
           <Row gutter={12}>
-            {originalInfo?.galleries?.map((item, idx) => (
+            {originalInfo?.images?.map((item, idx) => (
               <Col key={'image' + idx}>
-                <img width={80} alt='product' src={IMG_URL + item.path} />
+                <img width={80} alt='product' src={item?.url} />
               </Col>
             ))}
           </Row>

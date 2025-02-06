@@ -9,14 +9,14 @@ export const PathLogout = ({ children }) => {
   const menuActive = useSelector((list) => list.menu.activeMenu, shallowEqual);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    installationService
-      .checkInitFile()
-      .then(() => console.log('file found'))
-      .catch(() => {
-        navigate('/welcome');
-      });
-  }, []);
+  // useEffect(() => {
+  // installationService
+  // .checkInitFile()
+  // .then(() => console.log('file found'))
+  // .catch(() => {
+  // navigate('/welcome');
+  // });
+  // }, []);
 
   if (user) {
     return <Navigate to={`/${menuActive ? menuActive.url : ''}`} replace />;

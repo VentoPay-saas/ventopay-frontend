@@ -38,12 +38,12 @@ const Languages = () => {
   const goToEdit = (row) => {
     dispatch(
       addMenu({
-        url: `language/${row.id}`,
+        url: `language/${row._id}`,
         id: 'language_edit',
         name: t('edit.language'),
       })
     );
-    navigate(`/language/${row.id}`);
+    navigate(`/language/${row._id}`);
   };
 
   const [columns, setColumns] = useState([
@@ -61,7 +61,7 @@ const Languages = () => {
       render: (img, row) => {
         return (
           <Image
-            src={getImage(img)}
+            src={getImage(row?.images[0])}
             alt='img_gallery'
             width={100}
             className='rounded'
@@ -104,7 +104,7 @@ const Languages = () => {
               <DeleteButton
                 icon={<DeleteOutlined />}
                 onClick={() => {
-                  setId([row.id]);
+                  setId([row._id]);
                   setType('deleteLang');
                   setIsModalVisible(true);
                 }}
@@ -189,13 +189,15 @@ const Languages = () => {
         scroll={{ x: true }}
         columns={columns?.filter((item) => item.is_show)}
         dataSource={allLanguages}
-        rowKey={(record) => record.id}
+        rowKey={(record) => record._id}
         loading={loading}
         pagination={false}
         rowSelection={{
-          selectedRowKeys: [allLanguages.find((item) => item.default)?.id],
+          selectedRowKeys: [allLanguages.find((item) => item.default)?._id],
           type: 'radio',
           onChange: (values) => {
+            console.log("Values:", values);
+
             if (isDemo) {
               demoFunc();
               return;

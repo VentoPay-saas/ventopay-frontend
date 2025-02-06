@@ -35,12 +35,12 @@ const Currencies = () => {
   const goToEdit = (row) => {
     dispatch(
       addMenu({
-        url: `currency/${row.id}`,
+        url: `currency/${row._id}`,
         id: 'currency_edit',
         name: t('edit.currency'),
       })
     );
-    navigate(`/currency/${row.id}`);
+    navigate(`/currency/${row._id}`);
   };
 
   const [columns, setColumns] = useState([
@@ -84,7 +84,7 @@ const Currencies = () => {
                 disabled={row.deleted_at}
                 icon={<DeleteOutlined />}
                 onClick={() => {
-                  setId([row.id]);
+                  setId([row._id]);
                   setIsModalVisible(true);
                   setText(true);
                 }}
@@ -106,6 +106,8 @@ const Currencies = () => {
         }))
       ),
     };
+    console.log(params);
+
     currencyService
       .delete(params)
       .then(() => {

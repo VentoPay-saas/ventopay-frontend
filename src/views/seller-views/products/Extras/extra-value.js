@@ -34,8 +34,8 @@ export default function SellerExtraValue() {
   const [columns, setColumns] = useState([
     {
       title: t('id'),
-      dataIndex: 'id',
-      key: 'id',
+      dataIndex: '_id',
+      key: '_id',
       is_show: true,
     },
     {
@@ -43,7 +43,7 @@ export default function SellerExtraValue() {
       dataIndex: 'extra_group_id',
       key: 'extra_group_id',
       is_show: true,
-      render: (_, row) => row.group?.translation?.title,
+      render: (_, row) => row.group?.title,
     },
     {
       title: t('created.by'),

@@ -26,6 +26,6 @@ yarn-error.log*
 .vercel
 
 # production
-# /build
+/build
 
 .idea

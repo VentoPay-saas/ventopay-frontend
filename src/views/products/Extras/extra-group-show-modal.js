@@ -37,7 +37,7 @@ export default function ExtraGroupShowModal({ open, handleClose }) {
           {data.extra_values?.map((item, index) => (
             <Descriptions.Item
               key={index}
-              label={data.translation.title}
+              label={data.title}
               span={3}
             >
               {data.type === 'text' ? (

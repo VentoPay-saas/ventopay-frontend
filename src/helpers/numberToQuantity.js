@@ -1,5 +1,5 @@
 export default function numberToQuantity(number, unit) {
-  const title = unit?.translation?.title || 'pcs';
+  const title = unit?.title || 'pcs';
   if (!number) {
     return 0;
   }

@@ -117,7 +117,7 @@ export default function ExtraGroupModal({ modal, handleCancel, onSuccess }) {
             form={form}
             onFinish={onFinish}
           >
-            {languages.map((item) => (
+            {/* {languages.map((item) => (
               <Form.Item
                 key={'title' + item.locale}
                 rules={[
@@ -132,7 +132,34 @@ export default function ExtraGroupModal({ modal, handleCancel, onSuccess }) {
               >
                 <Input placeholder={t('title')} />
               </Form.Item>
-            ))}
+            ))} */}
+
+            <Form.Item
+              key={'title'}
+              rules={[
+                {
+                  required: true,
+                  message: t('required'),
+                },
+              ]}
+              name={`title`}
+              label={t('title')}
+            >
+              <Input placeholder={t('title')} />
+            </Form.Item>
+            <Form.Item
+              key={'title'}
+              rules={[
+                {
+                  required: true,
+                  message: t('required'),
+                },
+              ]}
+              name={`title`}
+              label={t('title')}
+            >
+              <Input placeholder={t('title')} />
+            </Form.Item>
           </Form>
         </>
       ) : (

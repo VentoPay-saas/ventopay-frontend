@@ -51,13 +51,14 @@ export default function UnitEdit() {
     if (!data) {
       return {};
     }
-    const { translations } = data;
-    const result = languages.map((item) => ({
-      [`title[${item.locale}]`]: translations.find(
-        (el) => el.locale === item.locale,
-      )?.title,
-    }));
-    return Object.assign({}, ...result);
+    return data
+    // const { translations } = data;
+    // const result = languages.map((item) => ({
+    //   [`title[${item.locale}]`]: translations.find(
+    //     (el) => el.locale === item.locale,
+    //   )?.title,
+    // }));
+    // return Object.assign({}, ...result);
   }
 
   const handleSubmit = (values) => {

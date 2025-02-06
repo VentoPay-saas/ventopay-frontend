@@ -44,43 +44,43 @@ const AddonsCategories = () => {
 
   const [columns, setColumns] = useState([
     {
-      title: t('id'),
-      dataIndex: 'id',
+      title: t('_id'),
+      dataIndex: '_id',
       is_show: true,
       sorter: (a, b) => a.id - b.id,
     },
     {
-      title: t('name'),
-      dataIndex: 'name',
+      title: t('title'),
+      dataIndex: 'title',
       is_show: true,
-      render: (_, data) => data.translation?.title,
+      render: (_, data) => data?.title,
     },
-    {
-      title: t('translations'),
-      dataIndex: 'locales',
-      is_show: true,
-      render: (_, row) => {
-        return (
-          <Space>
-            {row.locales?.map((item, index) => (
-              <Tag
-                key={index + '_' + 'locales'}
-                className='text-uppercase'
-                color={[colors[index]]}
-              >
-                {item}
-              </Tag>
-            ))}
-          </Space>
-        );
-      },
-    },
+    // {
+    //   title: t('translations'),
+    //   dataIndex: 'locales',
+    //   is_show: true,
+    //   render: (_, row) => {
+    //     return (
+    //       <Space>
+    //         {row.locales?.map((item, index) => (
+    //           <Tag
+    //             key={index + '_' + 'locales'}
+    //             className='text-uppercase'
+    //             color={[colors[index]]}
+    //           >
+    //             {item}
+    //           </Tag>
+    //         ))}
+    //       </Space>
+    //     );
+    //   },
+    // },
     {
       title: t('shop'),
       dataIndex: 'shop_id',
       is_show: true,
       render: (_, row) => {
-        return row.shop?.translation?.title;
+        return row.shop_id?.title;
       },
     },
     {
@@ -92,7 +92,7 @@ const AddonsCategories = () => {
           <Switch
             onChange={() => {
               setIsModalVisible(true);
-              setId(row.uuid);
+              setId(row._id);
               setActive(true);
             }}
             disabled={row.deleted_at}
@@ -133,19 +133,19 @@ const AddonsCategories = () => {
             <Button
               type='primary'
               icon={<EditOutlined />}
-              onClick={() => goToEdit(row.uuid)}
+              onClick={() => goToEdit(row._id)}
               disabled={row.deleted_at}
             />
             <Button
               icon={<CopyOutlined />}
-              onClick={() => goToClone(row.uuid)}
+              onClick={() => goToClone(row._id)}
               disabled={row.deleted_at}
             />
             <DeleteButton
               icon={<DeleteOutlined />}
               onClick={() => {
                 setIsModalVisible(true);
-                setId([row.id]);
+                setId([row._id]);
                 setText(true);
                 setActive(false);
               }}
@@ -176,8 +176,8 @@ const AddonsCategories = () => {
       immutable === 'deleted_at'
         ? undefined
         : immutable === 'all'
-        ? undefined
-        : immutable,
+          ? undefined
+          : immutable,
     deleted_at: immutable === 'deleted_at' ? immutable : null,
     column: data?.column,
     perPage: data?.perPage,
@@ -188,6 +188,7 @@ const AddonsCategories = () => {
     (state) => state.addons,
     shallowEqual
   );
+  console.log("🚀 ~ AddonsCategories ~ addonsList:", addonsList)
   const clearData = () => {
     dispatch(
       setMenuData({
@@ -480,7 +481,7 @@ const AddonsCategories = () => {
           pagination={{
             pageSize: params.perPage,
             page: activeMenu.data?.page || 1,
-            total: meta.total,
+            total: meta?.total,
             defaultCurrent: activeMenu.data?.page,
             current: activeMenu.data?.page,
           }}

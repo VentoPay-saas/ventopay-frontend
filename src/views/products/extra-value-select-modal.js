@@ -37,7 +37,7 @@ const ExtraValueSelectModal = ({ extra, onClose, onSelect }) => {
         setExtraValues(
           res.data.extra_values.map((item) => ({
             label: item.value,
-            value: item.id,
+            value: item._id,
           }))
         )
       )

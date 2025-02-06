@@ -66,7 +66,7 @@ const GalleryLanguages = () => {
     galleryService
       .getAll(params)
       .then((res) => {
-        setGallaryList(res.data.data);
+        setGallaryList(res.data);
         setMeta(res.data);
       })
       .finally(() => setLoading(false));
@@ -128,7 +128,7 @@ const GalleryLanguages = () => {
                 {gallary.length === gallaryList.length
                   ? t('clear.all')
                   : t('select.all')}
-                {}
+                { }
               </Button>
             </Space>
           </div>
@@ -145,12 +145,11 @@ const GalleryLanguages = () => {
                 gallaryList?.map((item, index) => (
                   <Col key={index}>
                     <Card
-                      className={`mb-0 ${
-                        item.isset ? 'card-noActive' : 'card-active'
-                      } card-image`}
+                      className={`mb-0 ${item.isset ? 'card-noActive' : 'card-active'
+                        } card-image`}
                     >
                       <Image
-                        src={getImage(item.path)}
+                        src={getImage(item.image)}
                         className='images'
                         alt={'images'}
                       />

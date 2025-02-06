@@ -43,10 +43,10 @@ const ImageUploadSingle = ({ image, setImage, type, form, name = 'image', isVide
 
   const createImage = (file) => {
     return {
-      uid: file.title,
-      name: file.title,
+      uid: file._id,
+      name: file._id,
       status: 'done', // done, uploading, error
-      url: file.title,
+      url: file.image,
       created: true,
     };
   };
@@ -112,7 +112,7 @@ const ImageUploadSingle = ({ image, setImage, type, form, name = 'image', isVide
         onChange={handleChange}
         customRequest={handleUpload}
         className='picture-card'
-        accept={isVideo ? "*" : '.png, .jpg, .jpeg, .webp, .svg, .jfif'} 
+        accept={isVideo ? "*" : '.png, .jpg, .jpeg, .webp, .svg, .jfif'}
         beforeUpload={(file) => {
           const isItAtLeast2MB = file.size / 1024 / 1024 < 2;
           if (!isItAtLeast2MB && !isVideo) {

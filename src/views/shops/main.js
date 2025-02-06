@@ -23,9 +23,9 @@ const ShopMain = ({ next, action_type = '', user }) => {
   const [location, setLocation] = useState(
     activeMenu?.data?.location
       ? {
-          lat: parseFloat(activeMenu?.data?.location?.latitude),
-          lng: parseFloat(activeMenu?.data?.location?.longitude),
-        }
+        lat: parseFloat(activeMenu?.data?.location?.latitude),
+        lng: parseFloat(activeMenu?.data?.location?.longitude),
+      }
       : getDefaultLocation(settings),
   );
 
@@ -77,16 +77,17 @@ const ShopMain = ({ next, action_type = '', user }) => {
     shopService
       .create(params)
       .then(({ data }) => {
+        console.log("🚀 ~ .then ~ data:", data)
         dispatch(
           replaceMenu({
-            id: `shop-${data.uuid}`,
-            url: `shop/${data.uuid}`,
+            id: `shop-${data._id}`,
+            url: `shop/${data._id}`,
             name: t('add.shop'),
-            data: { ...values, id: data?.id, seller: data?.seller },
+            data: { ...values, id: data?._id, seller: data?.seller },
             refetch: false,
           }),
         );
-        navigate(`/shop/${data.uuid}?step=1`);
+        navigate(`/shop/${data._id}?step=1`);
       })
       .catch((err) => console.error(err.response.data.params))
       .finally(() => setLoadingBtn(false));

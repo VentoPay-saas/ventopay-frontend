@@ -55,8 +55,8 @@ const CategoryList = ({ parentId, type = 'main' }) => {
     return shopService.search(params).then((res) => {
       setLinks(res.links);
       return res.data.map((item) => ({
-        label: item.translation !== null ? item.translation.title : 'no name',
-        value: item.id,
+        label: item.title !== null ? item?.title : 'no name',
+        value: item._id,
       }));
     });
   }
@@ -118,9 +118,9 @@ const CategoryList = ({ parentId, type = 'main' }) => {
 
   const [columns, setColumns] = useState([
     {
-      title: t('id'),
-      dataIndex: 'id',
-      key: 'id',
+      title: t('uuid'),
+      dataIndex: 'uuid',
+      key: 'uuid',
       is_show: true,
     },
     {
@@ -143,22 +143,22 @@ const CategoryList = ({ parentId, type = 'main' }) => {
           t('admin')
         ),
     },
-    {
-      title: t('translations'),
-      dataIndex: 'locales',
-      is_show: true,
-      render: (_, row) => {
-        return (
-          <Space>
-            {row.locales?.map((item, index) => (
-              <Tag className='text-uppercase' color={[colors[index]]}>
-                {item}
-              </Tag>
-            ))}
-          </Space>
-        );
-      },
-    },
+    // {
+    //   title: t('translations'),
+    //   dataIndex: 'locales',
+    //   is_show: true,
+    //   render: (_, row) => {
+    //     return (
+    //       <Space>
+    //         {row.locales?.map((item, index) => (
+    //           <Tag className='text-uppercase' color={[colors[index]]}>
+    //             {item}
+    //           </Tag>
+    //         ))}
+    //       </Space>
+    //     );
+    //   },
+    // },
     {
       title: t('image'),
       dataIndex: 'img',
@@ -167,7 +167,7 @@ const CategoryList = ({ parentId, type = 'main' }) => {
       render: (img, row) => {
         return (
           <Image
-            src={row.deleted_at ? 'https://via.placeholder.com/150' : img}
+            src={row.deleted_at ? 'https://via.placeholder.com/150' : row?.img[0].url}
             alt='img_gallery'
             width={100}
             className='rounded'
@@ -262,6 +262,7 @@ const CategoryList = ({ parentId, type = 'main' }) => {
     (state) => state.category,
     shallowEqual
   );
+  console.log("🚀 ~ CategoryList ~ categories:", categories)
 
   const data = activeMenu.data;
   const paramsData = {
@@ -272,8 +273,8 @@ const CategoryList = ({ parentId, type = 'main' }) => {
       immutable === 'deleted_at'
         ? undefined
         : immutable === 'all'
-        ? undefined
-        : immutable,
+          ? undefined
+          : immutable,
     deleted_at: immutable === 'deleted_at' ? immutable : null,
     type: parentId ? 'sub_main' : type,
     parent_id: parentId,
@@ -594,8 +595,8 @@ const CategoryList = ({ parentId, type = 'main' }) => {
           active
             ? t('set.active.category')
             : text
-            ? t('delete')
-            : t('all.delete')
+              ? t('delete')
+              : t('all.delete')
         }
         setText={setId}
         loading={loadingBtn}

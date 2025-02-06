@@ -51,7 +51,7 @@ const Subscriptions = () => {
               </Row>
             </div>
             <Row>
-              {data.map((elm, i) => (
+              {data?.map((elm, i) => (
                 <Col
                   key={`price-column-${i}`}
                   span={6}
@@ -64,12 +64,12 @@ const Subscriptions = () => {
                           className='font-size-md d-inline-block mr-1'
                           style={{ transform: 'translate(0px, -17px)' }}
                         >
-                          {defaultCurrency.symbol}
+                          {defaultCurrency?.symbol}
                         </span>
-                        <span>{elm.price}</span>
+                        <span>{elm?.price}</span>
                       </h1>
                       <p className='mb-0 text-lowercase'>
-                        {elm.month} {t('month')}
+                        {elm?.month} {t('month')}
                       </p>
                     </div>
                     <div className='mt-4'>
@@ -77,7 +77,7 @@ const Subscriptions = () => {
                         className='text-center font-weight-semibold cursor-pointer'
                         onClick={() => setModal(elm)}
                       >
-                        {elm.title}{' '}
+                        {elm?.title}{' '}
                         <span className='ant-btn-link'>
                           <EditOutlined />
                         </span>

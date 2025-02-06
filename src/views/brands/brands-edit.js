@@ -34,8 +34,8 @@ const BrandsEdit = () => {
 
   const createImage = (name) => {
     return {
-      name,
-      url: IMG_URL + name,
+      name: name._id,
+      url: name[0].url,
     };
   };
 
@@ -47,9 +47,10 @@ const BrandsEdit = () => {
         let brand = res.data;
         const data = {
           ...brand,
-          image: [createImage(brand.img)],
+          image: [createImage(brand.images)],
         };
         form.setFieldsValue(data);
+        console.log("🚀 ~ .then ~ brand:", brand)
         dispatch(setMenuData({ activeMenu, data }));
       })
       .finally(() => {

@@ -24,9 +24,9 @@ export default function BannerForm({ form, handleSubmit }) {
 
   // helper functions
   function formatShop(data) {
-    return data.map((item) => ({
-      label: item?.translation?.title,
-      value: item?.id,
+    return data?.shops?.map((item) => ({
+      label: item?.title,
+      value: item?._id,
     }));
   }
 
@@ -79,7 +79,7 @@ export default function BannerForm({ form, handleSubmit }) {
     >
       <Row gutter={12}>
         <Col span={12}>
-          {languages.map((item) => (
+          {/* {languages.map((item) => (
             <Form.Item
               key={'title' + item?.locale}
               label={t('title')}
@@ -95,10 +95,23 @@ export default function BannerForm({ form, handleSubmit }) {
             >
               <Input />
             </Form.Item>
-          ))}
+          ))} */}
+          <Form.Item
+            key={'title'}
+            label={t('title')}
+            name={`title`}
+            rules={[
+              {
+                required: true,
+                message: t('required'),
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
         </Col>
         <Col span={12}>
-          {languages.map((item) => (
+          {/* {languages.map((item) => (
             <Form.Item
               key={'description' + item?.locale}
               label={t('description')}
@@ -114,10 +127,23 @@ export default function BannerForm({ form, handleSubmit }) {
             >
               <Input />
             </Form.Item>
-          ))}
+            ))} */}
+          <Form.Item
+            key={'description'}
+            label={t('description')}
+            name={`description`}
+            rules={[
+              {
+                required: true,
+                message: t('required'),
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
         </Col>
         <Col span={12}>
-          {languages.map((item) => (
+          {/* {languages.map((item) => (
             <Form.Item
               key={'button_text' + item?.locale}
               label={t('button.text')}
@@ -133,7 +159,20 @@ export default function BannerForm({ form, handleSubmit }) {
             >
               <Input />
             </Form.Item>
-          ))}
+          ))} */}
+          <Form.Item
+            key={'button_text'}
+            label={t('button.text')}
+            name={`button_text`}
+            rules={[
+              {
+                required: true,
+                message: t('required'),
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
         </Col>
         <Col span={12}>
           <Form.Item
@@ -186,7 +225,7 @@ export default function BannerForm({ form, handleSubmit }) {
             name='images'
           >
             <MediaUpload
-              type='products'
+              type='banners'
               imageList={image}
               setImageList={setImage}
               form={form}

@@ -53,13 +53,13 @@ const UserEdit = () => {
           password: data?.password,
           shop_id: data?.invitations?.length
             ? data?.invitations?.map((i) => ({
-                label: i?.shop?.translation?.title,
-                value: i?.shop?.id,
-                key: i?.shop?.id,
-              }))
+              label: i?.shop?.title,
+              value: i?.shop?.id,
+              key: i?.shop?.id,
+            }))
             : undefined,
           kitchen: {
-            label: data?.kitchen?.translation?.title,
+            label: data?.kitchen?.title,
             value: data?.kitchen?.id,
             key: data?.kitchen?.id,
           },

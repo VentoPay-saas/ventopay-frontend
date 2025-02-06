@@ -32,8 +32,8 @@ export default function ExtraGroupModal({ modal, handleCancel, onSuccess }) {
   }
 
   useEffect(() => {
-    if (modal?.id) {
-      fetchExtraGroup(modal.id);
+    if (modal?._id) {
+      fetchExtraGroup(modal._id);
     }
   }, [modal]);
 
@@ -52,11 +52,11 @@ export default function ExtraGroupModal({ modal, handleCancel, onSuccess }) {
 
   const onFinish = (values) => {
     const body = {
-      title: getTranslationFields(languages, values),
+      title: values.title,
       type: 'text',
     };
-    if (modal?.id) {
-      updateExtraGroup(modal?.id, body);
+    if (modal?._id) {
+      updateExtraGroup(modal?._id, body);
     } else {
       createExtraGroup(body);
     }
@@ -89,7 +89,7 @@ export default function ExtraGroupModal({ modal, handleCancel, onSuccess }) {
 
   return (
     <Modal
-      title={modal?.id ? t('edit.extra.group') : t('add.extra.group')}
+      title={modal?._id ? t('edit.extra.group') : t('add.extra.group')}
       visible={!!modal}
       onCancel={handleCancel}
       footer={[
@@ -117,7 +117,7 @@ export default function ExtraGroupModal({ modal, handleCancel, onSuccess }) {
             form={form}
             onFinish={onFinish}
           >
-            {languages.map((item) => (
+            {/* {languages.map((item) => (
               <Form.Item
                 key={'title' + item.locale}
                 rules={[
@@ -132,7 +132,20 @@ export default function ExtraGroupModal({ modal, handleCancel, onSuccess }) {
               >
                 <Input placeholder={t('title')} />
               </Form.Item>
-            ))}
+            ))} */}
+            <Form.Item
+              key={'title'}
+              rules={[
+                {
+                  required: true,
+                  message: t('required'),
+                },
+              ]}
+              name={`title`}
+              label={t('title')}
+            >
+              <Input placeholder={t('title')} />
+            </Form.Item>
           </Form>
         </>
       ) : (

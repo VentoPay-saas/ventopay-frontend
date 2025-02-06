@@ -29,9 +29,9 @@ const BannerEdit = () => {
 
   const createImages = (items) =>
     items.map((item) => ({
-      uid: item.id,
-      name: item.path,
-      url: item.path,
+      uid: item._id,
+      name: item._id,
+      url: item.url,
     }));
 
   function getLanguageFields(data) {
@@ -59,13 +59,12 @@ const BannerEdit = () => {
       .getById(alias)
       .then((res) => {
         let banner = res.data;
-
         const data = {
           ...banner,
-          img: createImages(banner.galleries),
+          img: createImages(banner.images),
           shops: banner?.shops?.map((item) => ({
-            label: item.translation?.title,
-            value: item.id,
+            label: item?.title,
+            value: item._id,
           })),
           ...getLanguageFields(banner),
         };

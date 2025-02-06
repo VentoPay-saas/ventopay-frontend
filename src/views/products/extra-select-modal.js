@@ -20,12 +20,14 @@ const ExtraSelectModal = ({ open, onClose, selectedExtras, onSelect }) => {
     extraService
       .getAllGroups(params)
       .then((res) => {
-        const data = res.data.map((item) => ({
-          id: item.id,
-          label: item.translation?.title,
-          value: item.id,
+        const data = res.data.map((item) =>
+        ({
+          id: item._id,
+          label: item?.title,
+          value: item._id,
           shop_id: item.shop_id,
-        }));
+        })
+        );
         setExtrasGroup(data);
         setMeta(res.meta);
       })
@@ -77,6 +79,8 @@ const ExtraSelectModal = ({ open, onClose, selectedExtras, onSelect }) => {
               )
           )}
           renderItem={(item) => (
+            console.log(item),
+
             <List.Item
               extra={!item?.shop_id ? <Tag>{t('admin')}</Tag> : null}
               style={{ cursor: 'pointer' }}

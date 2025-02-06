@@ -55,7 +55,7 @@ const ShopTag = () => {
   const [columns, setColumns] = useState([
     {
       title: t('id'),
-      dataIndex: 'id',
+      dataIndex: '_id',
       key: 'id',
       sorter: true,
       is_show: true,
@@ -65,31 +65,32 @@ const ShopTag = () => {
       dataIndex: 'title',
       key: 'title',
       is_show: true,
-      render: (_, row) => row.translation?.title,
+      render: (_, row) => row?.title,
     },
-    {
-      title: t('translations'),
-      dataIndex: 'locales',
-      is_show: true,
-      render: (_, row) => (
-        <Space>
-          {row.locales?.map((item, index) => (
-            <Tag color={[colors[index]]} className='text-uppercase'>
-              {item}
-            </Tag>
-          ))}
-        </Space>
-      ),
-    },
+    // {
+    //   title: t('translations'),
+    //   dataIndex: 'locales',
+    //   is_show: true,
+    //   render: (_, row) => (
+    //     <Space>
+    //       {row.locales?.map((item, index) => (
+    //         <Tag color={[colors[index]]} className='text-uppercase'>
+    //           {item}
+    //         </Tag>
+    //       ))}
+    //     </Space>
+    //   ),
+    // },
     {
       title: t('image'),
       dataIndex: 'img',
       key: 'img',
       is_show: true,
       render: (img, row) => {
+
         return (
           <Image
-            src={!row.deleted_at ? IMG_URL + img : 'https://fakeimg.pl/640x360'}
+            src={!row.deleted_at ? row?.images[0] : 'https://fakeimg.pl/640x360'}
             alt='img_gallery'
             width={100}
             className='rounded'
@@ -129,7 +130,7 @@ const ShopTag = () => {
             icon={<DeleteOutlined />}
             onClick={() => {
               setIsModalVisible(true);
-              setId([row.id]);
+              setId([row._id]);
             }}
           />
         </Space>
@@ -151,23 +152,23 @@ const ShopTag = () => {
   const goToEdit = (row) => {
     dispatch(
       addMenu({
-        url: `shop-tag/${row.id}`,
+        url: `shop-tag/${row._id}`,
         id: 'shop_tag_edit',
         name: t('edit.shop.tag'),
       })
     );
-    navigate(`/shop-tag/${row.id}`);
+    navigate(`/shop-tag/${row._id}`);
   };
 
   const goToClone = (row) => {
     dispatch(
       addMenu({
-        url: `shop-tag/clone/${row.id}`,
+        url: `shop-tag/clone/${row._id}`,
         id: 'shop_tag_clone',
         name: t('clone.shop.tag'),
       })
     );
-    navigate(`/shop-tag/clone/${row.id}`);
+    navigate(`/shop-tag/clone/${row._id}`);
   };
 
   const tagDelete = () => {
@@ -180,6 +181,7 @@ const ShopTag = () => {
         }))
       ),
     };
+
     shopTagService
       .delete(params)
       .then(() => {
