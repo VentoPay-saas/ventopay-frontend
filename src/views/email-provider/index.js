@@ -42,12 +42,12 @@ export default function EmailProvider() {
   function goToEditEmailProviders(row) {
     dispatch(
       addMenu({
-        url: `settings/emailProviders/${row.id}`,
+        url: `settings/emailProviders/${row._id}`,
         id: 'edit_email_providers',
         name: t('edit.email.providers'),
       })
     );
-    navigate(`/settings/emailProviders/${row.id}`, { state: 'edit' });
+    navigate(`/settings/emailProviders/${row._id}`, { state: 'edit' });
   }
 
   const columns = [
@@ -70,7 +70,7 @@ export default function EmailProvider() {
           <Switch
             onChange={() => {
               setIsModalVisible(true);
-              setId(row.id);
+              setId(row._id);
             }}
             disabled={row.deleted_at}
             checked={active}
@@ -141,7 +141,7 @@ export default function EmailProvider() {
         scroll={{ x: true }}
         columns={columns}
         dataSource={emailProvider}
-        rowKey={(record) => record.id}
+        rowKey={(record) => record._id}
         loading={loading}
         pagination={false}
       />

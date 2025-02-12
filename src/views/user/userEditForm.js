@@ -121,8 +121,8 @@ export default function UserEditForm({
     const params = { search, status: 'approved' };
     return shopService.search(params).then((res) =>
       res.data.map((item) => ({
-        label: item.translation !== null ? item.translation.title : 'no name',
-        value: item.id,
+        label: item !== null ? item.title : 'no name',
+        value: item._id,
       })),
     );
   }
@@ -135,9 +135,9 @@ export default function UserEditForm({
     };
     return kitchenService.getAll(params).then((res) =>
       res?.data?.map((item) => ({
-        label: item?.translation?.title,
-        value: item?.id,
-        key: item?.id,
+        label: item?.title,
+        value: item?._id,
+        key: item?._id,
       })),
     );
   };

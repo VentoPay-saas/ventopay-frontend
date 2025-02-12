@@ -26,7 +26,15 @@ import { setCurrentChat } from '../redux/slices/chat';
 import { data as allRoutes } from 'configs/menu-config';
 import useDidUpdate from 'helpers/useDidUpdate';
 const { Sider } = Layout;
-
+const loadGoogleTranslate = () => {
+  if (!document.querySelector("#google-translate-script")) {
+    const script = document.createElement("script");
+    script.id = "google-translate-script";
+    script.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+    script.async = true;
+    document.body.appendChild(script);
+  }
+};
 const Sidebar = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -129,6 +137,22 @@ const Sidebar = () => {
           .includes(searchTerm.toUpperCase())
       )
       : data;
+
+
+  React.useEffect(() => {
+    window.googleTranslateElementInit = function () {
+      new window.google.translate.TranslateElement(
+        {
+          pageLanguage: "en",
+          // layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
+        },
+        "google_translate_element"
+      );
+    };
+
+    loadGoogleTranslate();
+  }, []);
+
   return (
     <>
       <Sider
@@ -137,13 +161,15 @@ const Sidebar = () => {
         collapsed={navCollapsed}
         style={{ height: '100vh', top: 0 }}
       >
+
         <NavProfile user={user} />
         <div className='menu-collapse' onClick={menuTrigger}>
           <MenuFoldOutlined />
         </div>
 
+
         {!navCollapsed ? (
-          <Space className='mx-4 mt-2 d-flex justify-content-between'>
+          <Space className='mx-4 mt-2 d-flex justify-content-between item-center'>
             <span className='icon-button' onClick={() => setLangModal(true)}>
               <img
                 className='globalOutlined'
@@ -154,7 +180,9 @@ const Sidebar = () => {
               />
               <span className='default-lang'>{i18n.language}</span>
               <RiArrowDownSFill size={15} />
+
             </span>
+            {/* <div id='google_translate_element' ></div> */}
             <span className='d-flex'>
               <ThemeConfigurator />
               <NotificationBar />
@@ -165,6 +193,8 @@ const Sidebar = () => {
             <MenuUnfoldOutlined />
           </div>
         )}
+
+
         <Divider style={{ margin: '10px 0' }} />
 
         <span className='mt-2 mb-2 d-flex justify-content-center'>
