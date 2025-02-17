@@ -1,1 +1,1 @@
-echo "20.15.0" > .nvmrc  # Replace with your Node.js version
+20.15.0

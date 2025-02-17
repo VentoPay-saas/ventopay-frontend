@@ -41,6 +41,7 @@ const ShopTag = () => {
     (state) => state.shopTag,
     shallowEqual
   );
+  console.log("🚀 ~ ShopTag ~ shopTag:", shopTag)
   const [id, setId] = useState(null);
   const data = activeMenu.data;
   const immutable = data?.role || role;
@@ -54,9 +55,9 @@ const ShopTag = () => {
   };
   const [columns, setColumns] = useState([
     {
-      title: t('id'),
+      title: t('_id'),
       dataIndex: '_id',
-      key: 'id',
+      key: '_id',
       sorter: true,
       is_show: true,
     },
@@ -332,7 +333,7 @@ const ShopTag = () => {
           defaultCurrent: activeMenu.data?.page,
           current: activeMenu.data?.page,
         }}
-        rowKey={(record) => record.id}
+        rowKey={(record) => record._id}
         loading={loading}
         onChange={onChangePagination}
       />
