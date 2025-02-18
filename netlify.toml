@@ -1,0 +1,2 @@
+[build]
+  NODE_VERSION = "18.17.0"
