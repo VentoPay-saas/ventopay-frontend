@@ -24,10 +24,11 @@ const allShopSlice = createSlice({
     builder.addCase(fetchAllShops.fulfilled, (state, action) => {
       const { payload } = action;
       state.loading = false;
-      state.allShops = payload.data.map((item) => ({
-        ...item,
-        name: item.translation !== null ? item.translation.title : 'no name',
-      }));
+      state.allShops = payload.data && payload.data.length > 0
+        ? payload.data.map((item) => ({
+          ...item,
+          name: item.translation !== null ? item.translation.title : 'no name',
+        })) : [];
       state.error = '';
     });
     builder.addCase(fetchAllShops.rejected, (state, action) => {

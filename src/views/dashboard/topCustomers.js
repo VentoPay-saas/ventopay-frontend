@@ -100,7 +100,7 @@ export default function TopCustomers() {
                     {item.count} {t('orders')}
                   </span>
                   <div className='mb-0 h5 font-weight-bold'>
-                    {numberToPrice(item.total_price, defaultCurrency.symbol)}
+                    {numberToPrice(item.total_price, defaultCurrency?.symbol)}
                   </div>
                 </div>
               </div>
